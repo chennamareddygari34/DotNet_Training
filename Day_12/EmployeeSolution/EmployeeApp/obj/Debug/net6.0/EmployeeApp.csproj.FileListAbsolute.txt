@@ -1,0 +1,14 @@
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\bin\Debug\net6.0\EmployeeApp.exe
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\bin\Debug\net6.0\EmployeeApp.deps.json
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\bin\Debug\net6.0\EmployeeApp.runtimeconfig.json
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\bin\Debug\net6.0\EmployeeApp.dll
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\bin\Debug\net6.0\EmployeeApp.pdb
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\obj\Debug\net6.0\EmployeeApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\obj\Debug\net6.0\EmployeeApp.AssemblyInfoInputs.cache
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\obj\Debug\net6.0\EmployeeApp.AssemblyInfo.cs
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\obj\Debug\net6.0\EmployeeApp.csproj.CoreCompileInputs.cache
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\obj\Debug\net6.0\EmployeeApp.dll
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\obj\Debug\net6.0\refint\EmployeeApp.dll
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\obj\Debug\net6.0\EmployeeApp.pdb
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\obj\Debug\net6.0\EmployeeApp.genruntimeconfig.cache
+D:\.NetTraining\Day12\EmployeeSolution\EmployeeApp\obj\Debug\net6.0\ref\EmployeeApp.dll

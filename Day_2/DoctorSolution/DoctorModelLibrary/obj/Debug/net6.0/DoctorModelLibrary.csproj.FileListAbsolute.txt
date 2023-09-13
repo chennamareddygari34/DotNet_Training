@@ -1,0 +1,11 @@
+D:\.NetTraining\Day2\DoctorSolution\DoctorModelLibrary\bin\Debug\net6.0\DoctorModelLibrary.deps.json
+D:\.NetTraining\Day2\DoctorSolution\DoctorModelLibrary\bin\Debug\net6.0\DoctorModelLibrary.dll
+D:\.NetTraining\Day2\DoctorSolution\DoctorModelLibrary\bin\Debug\net6.0\DoctorModelLibrary.pdb
+D:\.NetTraining\Day2\DoctorSolution\DoctorModelLibrary\obj\Debug\net6.0\DoctorModelLibrary.GeneratedMSBuildEditorConfig.editorconfig
+D:\.NetTraining\Day2\DoctorSolution\DoctorModelLibrary\obj\Debug\net6.0\DoctorModelLibrary.AssemblyInfoInputs.cache
+D:\.NetTraining\Day2\DoctorSolution\DoctorModelLibrary\obj\Debug\net6.0\DoctorModelLibrary.AssemblyInfo.cs
+D:\.NetTraining\Day2\DoctorSolution\DoctorModelLibrary\obj\Debug\net6.0\DoctorModelLibrary.csproj.CoreCompileInputs.cache
+D:\.NetTraining\Day2\DoctorSolution\DoctorModelLibrary\obj\Debug\net6.0\DoctorModelLibrary.dll
+D:\.NetTraining\Day2\DoctorSolution\DoctorModelLibrary\obj\Debug\net6.0\refint\DoctorModelLibrary.dll
+D:\.NetTraining\Day2\DoctorSolution\DoctorModelLibrary\obj\Debug\net6.0\DoctorModelLibrary.pdb
+D:\.NetTraining\Day2\DoctorSolution\DoctorModelLibrary\obj\Debug\net6.0\ref\DoctorModelLibrary.dll

@@ -1,0 +1,236 @@
+Validate a Card number
+4477 4683 4311 3002
+2003 1134 3864 7744- Reverse the number
+2+0*2+0+3*2+1+1*2+3+4*2+3+8*2+6+4*2+7+7*2+4+4*2 - identify the even position numbers and multiply by 2
+2+0+0+6+1+2+3+8+3+16+6+8+7+14+4+8 - Multiplied
+2+0+0+6+1+2+3+8+3+(1+6)+6+8+7+(1+4)+4+8 - If results in 2 digit number sum them up
+2+0+0+6+1+2+3+8+3+7+6+8+7+5+4+8 - Sum up all the values
+70%10-> Divide by 10 if 0 remainder then valid card number
+
+
+Model - 
+Card
+  string - cardnumber
+CardResult
+  string - CardNumber
+  bool - IsValid
+
+ICardService
+  bool ValidateCard(string ccNumber)
+
+CardService
+  bool ValidateCard(string ccNumber)
+    *bool CheckCardNumber(string ccNumber)
+    *string ReverseCardnumner(string ccNumber)
+    *int[] ConvertStringToArray(string ccNumber)
+    *int[] IdentifyEvenPositionAndProcess(int[] ccNumber)
+    *int SumTheArray(int[] ccNumber)
+    *bool CheckMod(int ccNumber)
+
+CardContrller
+  Post(Card card) -> CardResult
+	
+
+
+--------------------------------------------------------------------------
+using System.ComponentModel.DataAnnotations;
+
+namespace CardValidationAPI.Models
+{
+    public class Card
+    {
+        [MinLength(16, ErrorMessage = "Invalid card length")]
+        [MaxLength(16, ErrorMessage = "Invalid card length")]
+        public string CardNumber { get; set; }
+    }
+}
+using System.ComponentModel.DataAnnotations;
+
+namespace CardValidationAPI.Models
+{
+    public class CardResult:Card
+    {
+        
+        public bool IsValid { get; set; }
+    }
+}
+namespace CardValidationAPI.Interfaces
+{
+    public interface ICardService
+    {
+        bool ValidateCard(string ccNumber);
+    }
+}
+using CardValidationAPI.Interfaces;
+
+namespace CardValidationAPI.Services
+{
+    public class CardService : ICardService
+    {
+        public bool ValidateCard(string ccNumber)
+        {
+            var numberCheckResult = CheckCardNumber(ccNumber);
+            if (numberCheckResult)
+            {
+                ccNumber = ReverseCardnumner(ccNumber);
+                int[] cardNumber = ConvertStringToArray(ccNumber);
+                cardNumber = IdentifyEvenPositionAndProcess(cardNumber);
+                int sum = SumTheArray(cardNumber);
+                return CheckMod(sum);
+            }
+            return false;
+        }
+        bool CheckCardNumber(string ccNumber)
+        {
+            foreach (var item in ccNumber)
+            {
+                if(char.IsNumber(item)==false)
+                    return false;
+            }
+            return true;
+        }
+        string ReverseCardnumner(string ccNumber)
+        {
+            var reversedNumber = new string(ccNumber.Reverse().ToArray());
+            return reversedNumber;
+        }
+        int[] ConvertStringToArray(string ccNumber)
+        {
+            int[] cardNumber = new int[ccNumber.Length];
+            for (int i = 0; i < ccNumber.Length; i++)
+            {
+                cardNumber[i] = Convert.ToInt32(ccNumber[i].ToString());
+            }
+            return cardNumber;
+        }
+        int[] IdentifyEvenPositionAndProcess(int[] ccNumber)
+        {
+            for (int i = 0; i < ccNumber.Count(); i++)
+            {
+                if(i%2 != 0)
+                {
+                    ccNumber[i] *= 2;
+                    if (ccNumber[i] >9)
+                    {
+                        ccNumber[i] -= 9;
+                    }
+                }
+            }
+            return ccNumber;
+
+        }
+        int SumTheArray(int[] ccNumber)
+        {
+            int sum = 0;
+            sum = ccNumber.Sum();
+            return sum;
+        }
+        bool CheckMod(int ccNumber)
+        {
+            if (ccNumber%10 == 0)
+                return true;
+            return false;
+        }
+    }
+}
+using CardValidationAPI.Interfaces;
+using CardValidationAPI.Services;
+
+namespace CardValidationAPI
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+
+            builder.Services.AddControllers();
+            builder.Services.AddScoped<ICardService, CardService>();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseAuthorization();
+
+
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
+}
+using CardValidationAPI.Interfaces;
+using CardValidationAPI.Models;
+using CardValidationAPI.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CardValidationAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CardController : ControllerBase
+    {
+        private readonly ICardService _cardService;
+
+        public CardController(ICardService cardService) 
+        {
+            _cardService = cardService;
+        }
+        [HttpPost]
+        public ActionResult ValidateCard(Card card)
+        {
+            if(ModelState.IsValid)
+            {
+                var result = _cardService.ValidateCard(card.CardNumber);
+                if (result)
+                {
+                    CardResult cardResult = new CardResult()
+                    {
+                        CardNumber = card.CardNumber,
+                        IsValid = result
+                    };
+                    return Ok(cardResult);
+                }
+            }
+            return BadRequest("Invalid card number. Dont cheat!!!");
+        }
+    }
+}
+----------------------------------------------
+using CardValidationAPI.Interfaces;
+using CardValidationAPI.Services;
+
+namespace CardTesting
+{
+    public class CreditCardTest
+    {
+        ICardService cardService;
+        [SetUp]
+        public void Setup()
+        {
+            cardService = new CardService();
+        }
+
+        [TestCase("4477468343113002")]
+        [TestCase("Checkk")]
+        [TestCase("6477468343113002")]
+        [TestCase("447746834311302")]
+        public void ValidCheck(string number)
+        {
+            var result = cardService.ValidateCard(number);
+            Assert.IsTrue(result);
+        }
+    }
+}

@@ -1,0 +1,502 @@
+namespace CompanyApplication.Interfaces
+{
+    public interface IRepository<K,T>
+    {
+        public T Add(T entity);
+        public T Delete(K key);
+        public T Get(K key);
+
+        public T Update(T entity);
+        public ICollection<T> GetAll();
+    }
+}
+  using CompanyApplication.Contexts;
+  using CompanyApplication.Interfaces;
+  using CompanyApplication.Models;
+  using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+  namespace CompanyApplication.Repositories
+  {
+      public class DepartmentRepository : IRepository<int, Department>
+      {
+          private readonly CompanyContext _context;
+
+          public DepartmentRepository(CompanyContext context)
+          {
+              _context = context;
+          }
+          public Department Add(Department entity)
+          {
+              _context.departments.Add(entity);
+              _context.SaveChanges();
+              return entity;
+          }
+
+          public Department Delete(int key)
+          {
+              var department = Get(key);
+              _context.departments.Remove(department);
+              _context.SaveChanges();
+              return department;
+          }
+
+          public Department Get(int key)
+          {
+              var department = _context.departments.FirstOrDefault(d=>d.DepartmentNumber == key);
+              return department;
+          }
+
+          public ICollection<Department> GetAll()
+          {
+             return _context.departments.ToList();
+          }
+
+          public Department Update(Department entity)
+          {
+              _context.Update(entity);
+              _context.SaveChanges();
+              return entity;
+          }
+      }
+  }
+
+using CompanyApplication.Contexts;
+using CompanyApplication.Interfaces;
+using CompanyApplication.Models;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace CompanyApplication.Repositories
+{
+    public class EmployeeRepository : IRepository<int, Employee>
+    {
+        private readonly CompanyContext _context;
+
+        public EmployeeRepository(CompanyContext context)
+        {
+            _context = context;
+        }
+        public Employee Add(Employee entity)
+        {
+            _context.employees.Add(entity);
+            _context.SaveChanges();
+            return entity;
+        }
+
+        public Employee Delete(int key)
+        {
+            var employee = Get(key);
+            if (employee != null)
+            {
+                _context.employees.Remove(employee);
+                _context.SaveChanges();
+                return employee;
+            }
+            return employee;
+        }
+
+        public Employee Get(int key)
+        {
+            var employee = _context.employees.FirstOrDefault(e => e.Id == key);
+            return employee;
+        }
+
+        public ICollection<Employee> GetAll()
+        {
+            return _context.employees.ToList();
+        }
+
+        public Employee Update(Employee entity)
+        {
+            _context.Entry<Employee>(entity).State = EntityState.Modified;
+            _context.SaveChanges();
+            return entity;
+        }
+    }
+}
+using CompanyApplication.Interfaces;
+using CompanyApplication.Models;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CompanyApplication.Controllers
+{
+    public class DepartmentController : Controller
+    {
+        private readonly IRepository<int, Department> _repository;
+
+        public DepartmentController(IRepository<int,Department> repository)
+        {
+            _repository = repository;
+        }
+        public IActionResult Index()
+        {
+            return View(_repository.GetAll());
+        }
+        [HttpGet]
+        public IActionResult Add()
+        { 
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Add(Department department)
+        {
+            _repository.Add(department);
+            return RedirectToAction("Index");
+        }
+    }
+}
+using CompanyApplication.Contexts;
+using CompanyApplication.Interfaces;
+using CompanyApplication.Models;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace CompanyApplication.Repositories
+{
+    public class EmployeeRepository : IRepository<int, Employee>
+    {
+        private readonly CompanyContext _context;
+
+        public EmployeeRepository(CompanyContext context)
+        {
+            _context = context;
+        }
+        public Employee Add(Employee entity)
+        {
+            _context.employees.Add(entity);
+            _context.SaveChanges();
+            return entity;
+        }
+
+        public Employee Delete(int key)
+        {
+            var employee = Get(key);
+            if (employee != null)
+            {
+                _context.employees.Remove(employee);
+                _context.SaveChanges();
+                return employee;
+            }
+            return employee;
+        }
+
+        public Employee Get(int key)
+        {
+            var employee = _context.employees.FirstOrDefault(e => e.Id == key);
+            return employee;
+        }
+
+        public ICollection<Employee> GetAll()
+        {
+            return _context.employees.ToList();
+        }
+
+        public Employee Update(Employee entity)
+        {
+            _context.Entry<Employee>(entity).State = EntityState.Modified;
+            _context.SaveChanges();
+            return entity;
+        }
+    }
+}
+
+____________________________________________________________________________________________________________________________________________________________________________________
+using CompanyApplication.Contexts;
+using CompanyApplication.Interfaces;
+using CompanyApplication.Models;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace CompanyApplication.Repositories
+{
+    public class EmployeeRepository : IRepository<int, Employee>
+    {
+        private readonly CompanyContext _context;
+
+        public EmployeeRepository(CompanyContext context)
+        {
+            _context = context;
+        }
+        public Employee Add(Employee entity)
+        {
+            _context.employees.Add(entity);
+            _context.SaveChanges();
+            return entity;
+        }
+
+        public Employee Delete(int key)
+        {
+            var employee = Get(key);
+            if (employee != null)
+            {
+                _context.employees.Remove(employee);
+                _context.SaveChanges();
+                return employee;
+            }
+            return employee;
+        }
+
+        public Employee Get(int key)
+        {
+            var employee = _context.employees.FirstOrDefault(e => e.Id == key);
+            return employee;
+        }
+
+        public ICollection<Employee> GetAll()
+        {
+            return _context.employees.ToList();
+        }
+
+        public Employee Update(Employee entity)
+        {
+            _context.Entry<Employee>(entity).State = EntityState.Modified;
+            _context.SaveChanges();
+            return entity;
+        }
+    }
+}
+using CompanyApplication.Interfaces;
+using CompanyApplication.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Drawing.Printing;
+
+namespace CompanyApplication.Controllers
+{
+    public class EmployeeController : Controller
+    {
+        private readonly IRepository<int, Employee> _repository;
+        private readonly IRepository<int, Department> _departmentRepo;
+
+        public EmployeeController(IRepository<int,Employee> repository,IRepository<int,Department> departmentRepo) 
+        {
+            _repository = repository;
+            _departmentRepo = departmentRepo;
+        }
+        public IActionResult Index()
+        {
+            var employees = _repository.GetAll();
+            return View(employees);
+        }
+
+        public IActionResult Create()
+        {
+            ViewBag.departmentList = GetDepartments();
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Employee employee)
+        {
+            ViewBag.departmentList = GetDepartments();
+            _repository.Add(employee);
+            return RedirectToAction("Index");
+        }
+        private List<SelectListItem> GetDepartments()
+        {
+            List<SelectListItem> departmentList = new List<SelectListItem>();
+            var departments = _departmentRepo.GetAll();
+            foreach (var item in departments)
+            {
+                departmentList.Add(
+                    new SelectListItem
+                    { Text = item.Name, Value = item.DepartmentNumber.ToString() }
+                    );
+            }
+            return departmentList;
+        }
+    }
+}
+using CompanyApplication.Contexts;
+using CompanyApplication.Interfaces;
+using CompanyApplication.Models;
+using CompanyApplication.Repositories;
+using Microsoft.EntityFrameworkCore;
+
+namespace CompanyApplication
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+            builder.Services.AddControllersWithViews();
+
+
+            #region AddingConetexts
+            builder.Services.AddDbContext<CompanyContext>(opts =>
+            {
+                opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            #endregion
+            #region AddingUserderfinedServices
+            builder.Services.AddScoped<IRepository<int, Department>, DepartmentRepository>();
+            builder.Services.AddScoped<IRepository<int, Employee>, EmployeeRepository>();
+            #endregion
+
+
+            var app = builder.Build();
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.Run();
+        }
+    }
+}
+
+@model CompanyApplication.Models.Employee
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Employee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*< div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Salary" class="control-label"></label>
+                <input asp-for="Salary" class="form-control" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmnetId" class="control-label"></label>
+               @*  <input asp-for="DepartmnetId" class="form-control" /> 
+               <select>
+                   @foreach (var item in ViewBag.departmentList)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>*@
+                <select asp-for="DepartmnetId" class="form-control" asp-items="@ViewBag.departmentList"></select>
+                <span asp-validation-for="DepartmnetId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@model IEnumerable<CompanyApplication.Models.Employee>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmnetId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmnetId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+

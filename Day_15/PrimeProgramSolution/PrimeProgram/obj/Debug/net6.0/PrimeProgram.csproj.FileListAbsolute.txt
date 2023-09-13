@@ -1,0 +1,14 @@
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\bin\Debug\net6.0\PrimeProgram.exe
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\bin\Debug\net6.0\PrimeProgram.deps.json
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\bin\Debug\net6.0\PrimeProgram.runtimeconfig.json
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\bin\Debug\net6.0\PrimeProgram.dll
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\bin\Debug\net6.0\PrimeProgram.pdb
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\obj\Debug\net6.0\PrimeProgram.GeneratedMSBuildEditorConfig.editorconfig
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\obj\Debug\net6.0\PrimeProgram.AssemblyInfoInputs.cache
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\obj\Debug\net6.0\PrimeProgram.AssemblyInfo.cs
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\obj\Debug\net6.0\PrimeProgram.csproj.CoreCompileInputs.cache
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\obj\Debug\net6.0\PrimeProgram.dll
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\obj\Debug\net6.0\refint\PrimeProgram.dll
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\obj\Debug\net6.0\PrimeProgram.pdb
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\obj\Debug\net6.0\PrimeProgram.genruntimeconfig.cache
+D:\.NetTraining\day15\PrimeProgramSolution\PrimeProgram\obj\Debug\net6.0\ref\PrimeProgram.dll

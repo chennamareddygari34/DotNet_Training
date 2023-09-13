@@ -1,0 +1,289 @@
+
+If you want empty scree in pgadmin4 we can enter the
+
+1.clear
+2.cls
+
+
+
+
+
+
+Create table Skills(skill varchar(20),description varchar(200));
+
+\d Skills;
+
+select * from Skills;
+
+select table_name,column_name,data_type from information_schema.columns where table_name = 'skills';
+
+Drop table Skills;
+
+select * from Skills;
+
+\d Skills;
+
+Create table Skills(skill varchar(20)primary key,description varchar(200));
+
+\d Skills;
+
+Alter table Skills add dummy int; 
+
+\d Skills;
+
+alter table Skills drop column dummy;
+
+alter table Skills add  year int;--------------->Alter:Adding column
+
+alter table Skills alter column year type char(4);----->Alter:Datatype change ---------alter,table,column,TYPE------------keyword
+
+
+alter table Skills alter column year set NOT Null;---------->Alter:Set not null---------alter,table,column,set----keyword
+
+\d Skills;
+_________________________________________________________________________________________________________________________________________________________
+
+create table Areas (area varchar(20) primary key, zipcode varchar(8));
+
+\d Skills;
+
+                      Table "public.areas"
+ Column  |         Type          | Collation | Nullable | Default
+---------+-----------------------+-----------+----------+---------
+ area    | character varying(20) |           | not null |
+ zipcode | character varying(8)  |           |          |
+Indexes:
+    "areas_pkey" PRIMARY KEY, btree (area)
+
+-----------------------------------------------------------------------------
+create table Employees (id int GENERATED ALWAYS AS IDENTITY, name varchar(50) not null,phone varchar(15),area varchar(20) references Areas(area));
+
+\d Employees;
+                               Table "public.employees"
+ Column |         Type          | Collation | Nullable |           Default
+--------+-----------------------+-----------+----------+------------------------------
+ id     | integer               |           | not null | generated always as identity
+ name   | character varying(50) |           | not null |
+ phone  | character varying(15) |           |          |
+ area   | character varying(20) |           |          |
+Foreign-key constraints:
+    "employees_area_fkey" FOREIGN KEY (area) REFERENCES areas(area)
+
+alter table Employees add constraint pk_empid primary key(id);
+ \d Employees;
+                               Table "public.employees"
+ Column |         Type          | Collation | Nullable |           Default
+--------+-----------------------+-----------+----------+------------------------------
+ id     | integer               |           | not null | generated always as identity
+ name   | character varying(50) |           | not null |
+ phone  | character varying(15) |           |          |
+ area   | character varying(20) |           |          |
+Indexes:
+    "pk_empid" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "employees_area_fkey" FOREIGN KEY (area) REFERENCES areas(area)
+
+
+insert into Areas(area,zipcode)values('ABC',123456);
+insert into Areas(area,zipcode)values('EFG',123456);
+
+select * from Areas;
+ area | zipcode
+------+---------
+ ABC  | 123456
+ EFG  | 123456
+(2 rows)
+
+
+insert into Areas(area)values('YYY');
+INSERT 0 1
+dbCompany=# select * from Areas;
+ area | zipcode
+------+---------
+ ABC  | 123456
+ EFG  | 123456
+ YYY  |
+(3 rows)
+
+
+dbCompany=# insert into Areas(zipcode)values(123456);
+ERROR:  null value in column "area" of relation "areas" violates not-null constraint
+DETAIL:  Failing row contains (null, 123456).
+
+
+
+dbCompany=# insert into Areas values('HHH', '654321');
+INSERT 0 1
+dbCompany=# select * from Areas;
+ area | zipcode
+------+---------
+ ABC  | 123456
+ EFG  | 123456
+ YYY  |
+ HHH  | 654321
+(4 rows)
+
+
+dbCompany=# insert into Employees(name, phone, area) values ('Ramu', '1234567890', 'ABC');
+INSERT 0 1
+dbCompany=# select * from Employees;;
+ id | name |   phone    | area
+----+------+------------+------
+  1 | Ramu | 1234567890 | ABC
+(1 row)
+
+
+dbCompany=# insert into Employees (name, phone, area) values ('Sonu', '9876543210', 'ABC');
+INSERT 0 1
+dbCompany=# select * from Employees;;
+ id | name |   phone    | area
+----+------+------------+------
+  1 | Ramu | 1234567890 | ABC
+  2 | Sonu | 9876543210 | ABC
+(2 rows)
+
+
+dbCompany=# insert into Employees (name, phone, area)values ('Kimu', '1122334455', 'XYZ');
+ERROR:  insert or update on table "employees" violates foreign key constraint "employees_area_fkey"
+DETAIL:  Key (area)=(XYZ) is not present in table "areas".
+dbCompany=# insert into Employees (name, phone, area)values ('Kimu', '1122334455', 'YYY');
+INSERT 0 1
+dbCompany=# select * from Employees;
+ id | name |   phone    | area
+----+------+------------+------
+  1 | Ramu | 1234567890 | ABC
+  2 | Sonu | 9876543210 | ABC
+  4 | Kimu | 1122334455 | YYY
+(3 rows)
+
+
+
+dbCompany=# Update Employees set area='HHH';
+UPDATE 3
+dbCompany=# select * from Employees;
+ id | name |   phone    | area
+----+------+------------+------
+  1 | Ramu | 1234567890 | HHH
+  2 | Sonu | 9876543210 | HHH
+  4 | Kimu | 1122334455 | HHH
+(3 rows)
+
+                                   ^
+dbCompany=# Update Employees set area = 'ABC' where id = 1 ;
+UPDATE 1
+
+
+dbCompany=# select * from Employees;
+ id | name |   phone    | area
+----+------+------------+------
+  2 | Sonu | 9876543210 | HHH
+  4 | Kimu | 1122334455 | HHH
+  1 | Ramu | 1234567890 | ABC
+(3 rows)
+
+
+dbCompany=# Update Employees set area = 'EFG' where id = 2 ;
+UPDATE 1
+dbCompany=# select * from Employees;
+ id | name |   phone    | area
+----+------+------------+------
+  4 | Kimu | 1122334455 | HHH
+  1 | Ramu | 1234567890 | ABC
+  2 | Sonu | 9876543210 | EFG
+(3 rows)
+
+
+
+dbCompany=# Update Employees set area = 'IJK' where id = 4 ;
+ERROR:  insert or update on table "employees" violates foreign key constraint "employees_area_fkey"
+DETAIL:  Key (area)=(IJK) is not present in table "areas".
+dbCompany=# Update Employees set area = 'YYY' where id = 4 ;
+UPDATE 1
+dbCompany=# select * from Employees;
+ id | name |   phone    | area
+----+------+------------+------
+  1 | Ramu | 1234567890 | ABC
+  2 | Sonu | 9876543210 | EFG
+  4 | Kimu | 1122334455 | YYY
+(3 rows)
+
+
+
+dbCompany=# Update Employees set area = 'YYY', phone='2233445566' where id = 2;
+UPDATE 1
+dbCompany=# select * from Employees;
+ id | name |   phone    | area
+----+------+------------+------
+  1 | Ramu | 1234567890 | ABC
+  4 | Kimu | 1122334455 | YYY
+  2 | Sonu | 2233445566 | YYY
+(3 rows)
+
+
+dbCompany=# Update Employees set area = 'EFG' where id = 2 ;
+UPDATE 1
+dbCompany=# select * from Areas;
+ area | zipcode
+------+---------
+ ABC  | 123456
+ EFG  | 123456
+ YYY  |
+ HHH  | 654321
+(4 rows)
+
+
+dbCompany=# select * from Employees;
+ id | name |   phone    | area
+----+------+------------+------
+  1 | Ramu | 1234567890 | ABC
+  4 | Kimu | 1122334455 | YYY
+  2 | Sonu | 2233445566 | EFG
+(3 rows)
+
+
+
+                   ^
+dbCompany=# Delete from Employees where id = 4 ;
+DELETE 1
+dbCompany=# select * from Employees;
+ id | name |   phone    | area
+----+------+------------+------
+  1 | Ramu | 1234567890 | ABC
+  2 | Sonu | 2233445566 | EFG
+(2 rows)
+
+
+
+
+dbCompany=# alter table Skills drop column year;
+ALTER TABLE
+
+dbCompany=# select * from Skills;
+ skill | description
+-------+-------------
+(0 rows)
+
+
+dbCompany=# insert into Skills values('C','PLT');
+INSERT 0 1
+dbCompany=# insert into Skills values('C++','OOPS');
+INSERT 0 1
+dbCompany=# insert into Skills values('Java','Web');
+INSERT 0 1
+dbCompany=# select * from Skills;
+ skill | description
+-------+-------------
+ C     | PLT
+ C++   | OOPS
+ Java  | Web
+(3 rows)
+
+
+
+
+
+
+
+
+
+

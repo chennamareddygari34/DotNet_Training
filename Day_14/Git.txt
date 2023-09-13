@@ -1,0 +1,31 @@
+Microsoft Windows [Version 10.0.19043.2364]
+(c) Microsoft Corporation. All rights reserved.
+
+D:\.NetTraining\day14>git init
+Initialized empty Git repository in D:/.NetTraining/day14/.git/
+
+D:\.NetTraining\day14>git remote add origin https://github.com/chennamareddygari34/Aug2023-Oct2023.Net_training.git
+
+D:\.NetTraining\day14>git remote -v
+origin  https://github.com/chennamareddygari34/Aug2023-Oct2023.Net_training.git (fetch)
+origin  https://github.com/chennamareddygari34/Aug2023-Oct2023.Net_training.git (push)
+
+D:\.NetTraining\day14>git add -A
+warning: in the working copy of 'SupplierAndProductManagementSolution/SupplierAndProductManagementApp/Contexts/ApplicationContext.cs', LF will be replaced by CRLF the next time Git touches it
+
+D:\.NetTraining\day14>git commit -m "first commit"
+
+
+D:\.NetTraining\day14>git push origin master
+Enumerating objects: 174, done.
+Counting objects: 100% (174/174), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (152/152), done.
+Writing objects: 100% (174/174), 3.44 MiB | 1.19 MiB/s, done.
+Total 174 (delta 32), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (32/32), done.
+To https://github.com/chennamareddygari34/Aug2023-Oct2023.Net_training.git
+ * [new branch]      master -> master
+
+D:\.NetTraining\day14>
+

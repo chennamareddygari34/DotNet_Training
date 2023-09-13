@@ -1,0 +1,139 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeApp.Services
+{
+    public class EmployeeService
+    {
+        public int CountFullTimeEmployees()
+        {
+            int num = new Random().Next(10, 30);
+            return num;
+        }
+    }
+}
+
+using EmployeeApp.Services;
+
+namespace EmployeeTest
+{
+    [TestClass]
+    public class EmployeeServiceTest
+    {
+        [TestMethod]
+        public void CountFullTimeEmployeesTest()
+        {
+            //AAA - > Arrange, Action, Assert
+
+            //Arange
+            EmployeeService employeeService = new EmployeeService();
+
+            //Action
+            var result = employeeService.CountFullTimeEmployees();
+            var data = result % 2;
+            //Assert
+            Assert.AreEqual(1, data);
+        }
+    }
+}
+---------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeApp.Services
+{
+    public class CalculatorService
+    {
+        public int Add(int num1,int num2)
+        {
+            return (num1+num2);
+        }
+        public int Product(int num1, int num2)
+        {
+            return (num1 * num2);
+        }
+        public int Divide(int num1, int num2)
+        {
+            return (num1 / num2);
+        }
+        public int Subract(int num1, int num2)
+        {
+            return (num1 - num2);
+        }
+
+    }
+}
+----------------------------------------
+using EmployeeApp.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeTest
+{
+    [TestClass]
+    public class CalculatorServiceTest
+    {
+        [TestMethod("Testing Add Method of Calculator with maximum int value")]
+        
+        public void AddTest()
+        {
+            //Arrange
+            int num1 = int.MaxValue, num2 = 100;
+            CalculatorService calculatorService = new CalculatorService();
+            //Action
+            int result = calculatorService.Add(num1, num2);
+            int expected = int.MaxValue -100;
+            //Assert
+            Assert.AreEqual(expected,result);
+        }
+    }
+}
+----------------------------
+Microsoft.EntityFrameworkCore.InMemory - 6.0.21
+
+-------------------------------
+using DoctorClinicApplication.Contexts;
+using DoctorClinicApplication.Interfaces;
+using DoctorClinicApplication.Models;
+using DoctorClinicApplication.Models.DTOs;
+using DoctorClinicApplication.Repositories;
+using DoctorClinicApplication.Services;
+using Microsoft.EntityFrameworkCore;
+
+namespace ClinicTest
+{
+    public class Tests
+    {
+        ClinicContext context;
+        //Gets executed for every test
+        [SetUp]
+        public void Setup()
+        {
+            var dbContextOption = new DbContextOptionsBuilder<ClinicContext>().UseInMemoryDatabase(databaseName: "dbDummyClinic").Options;
+            context = new ClinicContext(dbContextOption);
+        }
+
+        [Test]
+        public void LoginTest()
+        {
+            //Arrange
+            IRepository<int, Patient> patientRepository = new PatientRepository(context);
+            var patient = new Patient { Id =1,Name = "Jim", Age = 22, Phone = "3435345636", Email = "jim@gmail.com" };
+            patientRepository.Add(patient);
+            ILoginService loginService = new LoginService(patientRepository);
+            //Action
+            var result = loginService.Login(new LoginDTO { Id = 1, Password = "23534534" });
+            //Assert
+            Assert.AreEqual(1, result.Id);
+        }
+    }
+}

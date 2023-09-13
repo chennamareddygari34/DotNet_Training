@@ -1,0 +1,11 @@
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreModelLibrary\bin\Debug\net6.0\PizzaStoreModelLibrary.deps.json
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreModelLibrary\bin\Debug\net6.0\PizzaStoreModelLibrary.dll
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreModelLibrary\bin\Debug\net6.0\PizzaStoreModelLibrary.pdb
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreModelLibrary\obj\Debug\net6.0\PizzaStoreModelLibrary.GeneratedMSBuildEditorConfig.editorconfig
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreModelLibrary\obj\Debug\net6.0\PizzaStoreModelLibrary.AssemblyInfoInputs.cache
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreModelLibrary\obj\Debug\net6.0\PizzaStoreModelLibrary.AssemblyInfo.cs
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreModelLibrary\obj\Debug\net6.0\PizzaStoreModelLibrary.csproj.CoreCompileInputs.cache
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreModelLibrary\obj\Debug\net6.0\PizzaStoreModelLibrary.dll
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreModelLibrary\obj\Debug\net6.0\refint\PizzaStoreModelLibrary.dll
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreModelLibrary\obj\Debug\net6.0\PizzaStoreModelLibrary.pdb
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreModelLibrary\obj\Debug\net6.0\ref\PizzaStoreModelLibrary.dll

@@ -1,0 +1,15 @@
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\bin\Debug\net6.0\PizzaStoreDALLibrary.deps.json
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\bin\Debug\net6.0\PizzaStoreDALLibrary.dll
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\bin\Debug\net6.0\PizzaStoreDALLibrary.pdb
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\obj\Debug\net6.0\PizzaStoreDALLibrary.GeneratedMSBuildEditorConfig.editorconfig
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\obj\Debug\net6.0\PizzaStoreDALLibrary.AssemblyInfoInputs.cache
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\obj\Debug\net6.0\PizzaStoreDALLibrary.AssemblyInfo.cs
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\obj\Debug\net6.0\PizzaStoreDALLibrary.csproj.CoreCompileInputs.cache
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\obj\Debug\net6.0\PizzaStoreDALLibrary.dll
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\obj\Debug\net6.0\refint\PizzaStoreDALLibrary.dll
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\obj\Debug\net6.0\PizzaStoreDALLibrary.pdb
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\obj\Debug\net6.0\ref\PizzaStoreDALLibrary.dll
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\bin\Debug\net6.0\PizzaStoreModelLibrary.dll
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\bin\Debug\net6.0\PizzaStoreModelLibrary.pdb
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\obj\Debug\net6.0\PizzaStoreDALLibrary.csproj.AssemblyReference.cache
+D:\.NetTraining\Day1\PizzaStoreSolution\PizzaStoreDALLibrary\obj\Debug\net6.0\PizzaStoreDALLibrary.csproj.CopyComplete

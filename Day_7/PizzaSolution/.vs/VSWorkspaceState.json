@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\PizzaStoreApp",
+    "\\PizzaStoreApp\\Controllers",
+    "\\PizzaStoreApp\\Exceptions",
+    "\\PizzaStoreApp\\Models",
+    "\\PizzaStoreApp\\Repositories",
+    "\\PizzaStoreApp\\Services",
+    "\\PizzaStoreApp\\Views",
+    "\\PizzaStoreApp\\Views\\Home",
+    "\\PizzaStoreApp\\Views\\Pizza"
+  ],
+  "SelectedNode": "\\PizzaStoreApp\\Views\\Pizza\\Index.cshtml",
+  "PreviewInSolutionExplorer": false
+}

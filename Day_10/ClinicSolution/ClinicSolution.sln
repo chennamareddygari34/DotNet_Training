@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34009.444
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorClinicApplication", "DoctorClinicApplication\DoctorClinicApplication.csproj", "{AF973716-D785-4D99-B337-07D11EF207BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicTest", "ClinicTest\ClinicTest.csproj", "{93A44938-0934-485D-9EE3-C912B96A56D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF973716-D785-4D99-B337-07D11EF207BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF973716-D785-4D99-B337-07D11EF207BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF973716-D785-4D99-B337-07D11EF207BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF973716-D785-4D99-B337-07D11EF207BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93A44938-0934-485D-9EE3-C912B96A56D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93A44938-0934-485D-9EE3-C912B96A56D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93A44938-0934-485D-9EE3-C912B96A56D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93A44938-0934-485D-9EE3-C912B96A56D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85AB1F49-5E88-4195-8369-39C67EAA0009}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,143 @@
+SELECT 
+c.first_name||''||c.last_name AS customer_name,
+p.product_name,
+s.supplier_name,
+b.bill_amount
+FROM
+ customer c
+JOIN 
+bill b ON c.customer_id=b.customer_id
+JOIN
+product p ON b. product_id=p.Product_id
+JOIN
+supplier s ON b.supplier_id=s.supplier_id
+WHERE 
+c.customer_id=<customer_id>
+AND
+p.product_id=<product_id>;
+----------------------------------------------
+Create table Skills
+(skill varchar(20),
+description varchar(200));
+
+-------------------------------------------------
+\d Skills-describe table
+--------------------------------------------------------
+Information_Schema
+
+
+select table_name,column_name,data_type from information_schema.columns where table_name='Skills';
+--------------------------------------------------------
+***Drop:
+
+
+drop table Skills;
+---------------------------------------------------
+Create table Skills
+(skill varchar(20) primary key,
+description varchar(200));
+-------------------------------------------------------
+****Alter:Adding column
+
+alter table Skills
+add dummy int;
+-------------------------------------------------
+****Alter:Drop column
+
+alter table Skills
+drop column dummy;
+-------------------------------------------
+*******Alter: datatype Adding column
+
+alter table Skills
+add  year int;
+----------------------------------------
+Alter:Datatype change
+
+alter table Skills
+alter column year type char(4);
+
+alter,table,column,TYPE------------keyword
+
+----------------------------------------
+Alter:Set not null
+
+alter table Skills
+alter column year set NOT Null;
+
+alter,table,column,set----keyword
+----------------------------------------
+Creating Area Table----
+
+create table Areas
+(area varchar(20) primary key,
+zipcode varchar(8));
+
+Craeting Employees Table-----Foreign key
+
+Create table Employees
+(id int GENERATED ALWAYS AS IDENTITY,
+name varchar(50) not null,
+phone varchar(15),
+area varchar(20) references Areas(area));
+
+Add constraint ------------primary key
+
+alter table Employees
+add constraint pk_empid primary key(id);
+--------------------------------------------------------
+DML-Data manipulation table---insert data into table
+-------------------------------------------------------------
+
+insert into Areas(area,zipcode) values('ABC','123456');
+insert into Areas(area,zipcode) values('ABC','123456');XXXXXXXXXXXXXXXXXalready exists
+insert into Areas(area,zipcode) values('EFG','452876');
+
+insert into Areas(zipcode)  values('452876');xxxxxxxxxxxxxx
+insert into Areas(area) values('XYZ');
+insert into Areas values('HHH','654321');
+
+------------------------------------------------------------
+Entering data into Employees table
+------------------------------------------------------
+insert into Employees(name,phone,area) values('Ramu','1234567890','ABC');
+insert into Employees(name,phone,area) values('Somu','9876543210','ABC');
+insert into Employees(id)  values('kimmu','1112223334','ABC')XXXXXXXXXXXXX
+insert into Employees(name,phone,area) values('Kimmu','1112223334','UUU');xxxxxxxxxxxxxxxxxxxxxxx
+insert into Employees(name,phone,area) values('Kimmu','1112223334','EFG');
+-----------------------------------------------------------------
+UPdate 
+Update Employees se area='ABC';-------IT UPDATE ENTIRE COULMN.
+Update Employees set area='ABC' where id=1;
+Update Employees set area='EFG' where id=2;
+Update Employees set area='XYZ' where id=3;
+
+multiple values update:
+Update Employees set area='XYZ' ,phone='4445555768' where id=3;
+
+select * from Employees;
+------------------------------------------------------------
+Delete:
+
+delete from Employees where id=3;
+
+delete from Areas where area='EFG';XXXXXXXXXXXXX 'EFG' IS PRSENT IN CHILD TABLE
+----------------------------------------------------------------
+
+Create table EmployeesSkills
+(Employee_id int,
+Skill_name varchar(20),
+Skill_Level int,
+primary key(Employee_id,Skill_Name));
+
+drop table EmployeesSkills;
+
+Create table EmployeesSkills
+(Employee_id int,
+Skill_name varchar(20),
+Skill_Level int,
+primary key(Employee_id,Skill_Name),
+constraint fk_empSkill Foreign Key(Employee_id) references Employees(id),
+constraint fk_skillEmp Foreign Key(Skill_name) references Skills(Skill));
+
+

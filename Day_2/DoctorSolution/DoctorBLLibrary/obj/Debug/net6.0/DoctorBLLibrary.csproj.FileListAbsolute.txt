@@ -1,0 +1,17 @@
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\bin\Debug\net6.0\DoctorBLLibrary.deps.json
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\bin\Debug\net6.0\DoctorBLLibrary.dll
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\bin\Debug\net6.0\DoctorBLLibrary.pdb
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\bin\Debug\net6.0\DoctorDALLibrary.dll
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\bin\Debug\net6.0\DoctorModelLibrary.dll
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\bin\Debug\net6.0\DoctorDALLibrary.pdb
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\bin\Debug\net6.0\DoctorModelLibrary.pdb
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\obj\Debug\net6.0\DoctorBLLibrary.csproj.AssemblyReference.cache
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\obj\Debug\net6.0\DoctorBLLibrary.GeneratedMSBuildEditorConfig.editorconfig
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\obj\Debug\net6.0\DoctorBLLibrary.AssemblyInfoInputs.cache
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\obj\Debug\net6.0\DoctorBLLibrary.AssemblyInfo.cs
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\obj\Debug\net6.0\DoctorBLLibrary.csproj.CoreCompileInputs.cache
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\obj\Debug\net6.0\DoctorBLLibrary.csproj.CopyComplete
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\obj\Debug\net6.0\DoctorBLLibrary.dll
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\obj\Debug\net6.0\refint\DoctorBLLibrary.dll
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\obj\Debug\net6.0\DoctorBLLibrary.pdb
+D:\.NetTraining\Day2\DoctorSolution\DoctorBLLibrary\obj\Debug\net6.0\ref\DoctorBLLibrary.dll

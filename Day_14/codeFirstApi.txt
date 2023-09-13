@@ -1,0 +1,244 @@
+Scaffold-DbContext "" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Models
+
+[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+public IActionResult Error()
+{
+    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+}
+----------------------------------------------------------------------------
+using System.ComponentModel.DataAnnotations;
+
+namespace FirstAPI.Models
+{
+    public class User
+    {
+        [Key]
+        public string Username { get; set; }
+        public byte[] Password { get; set; }
+        public byte[] Key { get; set; }
+    }
+}
+
+
+----------------------------------------------------------------------------
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FirstAPI.Models
+{
+    public class Employee
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string? Phone { get; set; }
+        public float Salary { get; set; }
+        public bool? IsActive { get; set; }
+        public string? Username { get; set; }
+        [ForeignKey("Username")]
+        public User User { get; set; }
+    }
+}
+----------------------------------------------------------------------------
+
+using Microsoft.EntityFrameworkCore;
+
+namespace FirstAPI.Models
+{
+    public class CompanyContext : DbContext
+    {
+        public CompanyContext(DbContextOptions opts):base(opts) 
+        {
+            
+        }
+        public DbSet<Employee> employees { get; set; }
+        public DbSet<User> users { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Employee>().HasData(
+                new Employee { Id=101,Name="Ramu",Age=21,Phone="1234567890",Salary=12345.6f},
+                new Employee { Id = 102, Name = "Somu", Age = 27, Phone = "9876543210", Salary = 54321.6f }
+                );
+        }
+    }
+}
+
+----------------------------------------------------------------------------
+namespace FirstAPI.Models.DTOs
+{
+    public class UserDTO
+    {
+        public string? Username { get; set; }
+        public string? Password { get; set; }
+    }
+}
+
+
+
+----------------------------------------------------------------------------
+
+using FirstAPI.Interfaces;
+using FirstAPI.Models;
+
+namespace FirstAPI.Repositories
+{
+    public class UserRepository : IRepository<string, User>
+    {
+        private readonly CompanyContext _context;
+
+        public UserRepository(CompanyContext context) 
+        {
+            _context = context;
+        }
+        public User Add(User item)
+        {
+            _context.users.Add(item);
+            _context.SaveChanges();
+            return item;
+        }
+
+        public User Delete(string key)
+        {
+           var user = Get(key);
+            if (user != null)
+            {
+                _context.users.Remove(user);
+                _context.SaveChanges();
+            }
+            return null;
+        }
+
+        public User Get(string key)
+        {
+            var user = _context.users.FirstOrDefault(u=>u.Username == key);
+            return user;
+        }
+
+        public List<User> GetAll()
+        {
+            return _context.users.ToList();
+        }
+
+        public User Update(User item)
+        {
+            _context.Entry<User>(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+            return item;
+        }
+    }
+}
+
+----------------------------------------------------------------------------
+
+using FirstAPI.Models;
+using FirstAPI.Models.DTOs;
+
+namespace FirstAPI.Interfaces
+{
+    public interface IUserService
+    {
+        public User Login(UserDTO userDTO);
+        public User Register(UserDTO userDTO);
+    }
+}
+
+
+----------------------------------------------------------------------------
+using FirstAPI.Interfaces;
+using FirstAPI.Models;
+using FirstAPI.Models.DTOs;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace FirstAPI.Services
+{
+    public class UserService : IUserService
+    {
+        private readonly IRepository<string, User> _userRepository;
+
+        public UserService(IRepository<string,User> repository) 
+        { 
+            _userRepository = repository;
+        }
+        public User Login(UserDTO userDTO)
+        {
+            var user = _userRepository.Get(userDTO.Username);
+            if(user != null)
+            {
+                var dbPass = user.Password;
+                HMACSHA512 hMACSHA512 = new HMACSHA512(user.Key);
+                var userPass = hMACSHA512.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password));
+                if(userPass.Length==dbPass.Length)
+                {
+                    for(int i = 0; i < dbPass.Length; i++)
+                    {
+                        if (userPass[i] != dbPass[i])
+                            return null;
+                    }
+                    user.Password = null;
+                    user.Key = null;
+                    return user;
+                }
+            }
+            return null;
+        }
+
+        public User Register(UserDTO userDTO)
+        {
+            HMACSHA512 hMACSHA512 = new HMACSHA512();
+            User user = new User();
+            user.Username = userDTO.Username;
+            user.Password = hMACSHA512.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password));
+            user.Key = hMACSHA512.Key;
+            _userRepository.Add(user);
+            return user;
+        }
+    }
+}
+
+
+----------------------------------------------------------------------------
+using FirstAPI.Interfaces;
+using FirstAPI.Models.DTOs;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace FirstAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
+    {
+        private readonly IUserService _service;
+
+        public UserController(IUserService service)
+        {
+            _service = service;
+        }
+        [HttpPost("Login")]
+        public ActionResult Login(UserDTO userDTO)
+        {
+            var result = _service.Login(userDTO);
+            if(result == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(result);
+        }
+        [HttpPost("Register")]
+        public ActionResult Register(UserDTO userDTO)
+        {
+            var result = _service.Register(userDTO);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
+        }
+    }
+}
+
+
+----------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------

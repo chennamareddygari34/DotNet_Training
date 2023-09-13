@@ -1,0 +1,500 @@
+namespace FirstAPI.Interfaces
+{
+    public interface IRepository<K,T>
+    {
+        public List<T> GetAll();
+        public T Get(K key);
+        public T Add(T item);
+        public T Delete(K key);
+        public T Update(T item);
+    }
+}
+----------------------------------------------------------------------------------------
+using FirstAPI.Models;
+using FirstAPI.Models.DTOs;
+
+namespace FirstAPI.Interfaces
+{
+    public interface IEmployeeService
+    {
+        List<Employee> GetAllEmployees();
+        List<Employee> GemEmployeesInASalaryRange(float min,float max);
+        Employee AddANewEmployee(Employee employee);   
+        Employee UpdateEmployeePhone(EmployeePhoneDTO employee);
+        Employee UpdateEmployeeSalary(EmployeeSalaryDTO employee);
+        Employee ToggleEmployeeStatus(int id);
+
+    }
+}
+----------------------------------------------------------------------------------------
+namespace FirstAPI.Models.DTOs
+{
+    public class EmployeePhoneDTO
+    {
+        public int Id { get; set; }
+        public string Phone { get; set; }
+    }
+}
+
+
+
+
+
+----------------------------------------------------------------------------------------
+
+namespace FirstAPI.Models.DTOs
+{
+    public class EmployeeSalaryDTO
+    {
+        public int Id { get; set; }
+        public float Salary { get; set; }
+    }
+}
+
+
+
+
+
+
+----------------------------------------------------------------------------------------
+
+namespace FirstAPI.Models
+{
+    public class Employee
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string? Phone { get; set; }
+        public float Salary { get; set; }
+        public bool IsActive { get; set; }
+    }
+}
+
+----------------------------------------------------------------------------------------
+
+using Microsoft.EntityFrameworkCore;
+
+namespace FirstAPI.Models
+{
+    public class CompanyContext : DbContext
+    {
+        public CompanyContext(DbContextOptions opts):base(opts) 
+        {
+            
+        }
+        public DbSet<Employee> employees { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Employee>().HasData(
+                new Employee { Id=101,Name="Ramu",Age=21,Phone="1234567890",Salary=12345.6f},
+                new Employee { Id = 102, Name = "Somu", Age = 27, Phone = "9876543210", Salary = 54321.6f }
+                );
+        }
+    }
+}
+
+
+----------------------------------------------------------------------------------------
+
+using FirstAPI.Interfaces;
+using FirstAPI.Models;
+
+namespace FirstAPI.Repositories
+{
+    public class EmployeeRepository : IRepository<int, Employee>
+    {
+        private readonly CompanyContext _context;
+
+        public EmployeeRepository(CompanyContext context)
+        {
+            _context = context;
+        }
+        public Employee Add(Employee item)
+        {
+            _context.employees.Add(item);
+            _context.SaveChanges();
+            return item;
+        }
+
+        public Employee Delete(int key)
+        {
+            var employee = Get(key);
+            if(employee != null)
+            {
+                _context.employees.Remove(employee);
+                _context.SaveChanges();
+                return employee;
+            }
+            return null;
+        }
+
+        public Employee Get(int key)
+        {
+            var employee = _context.employees.FirstOrDefault(emp=>emp.Id== key);
+            return employee;
+        }
+
+        public List<Employee> GetAll()
+        {
+            return _context.employees.ToList();
+        }
+
+        public Employee Update(Employee item)
+        {
+            _context.Entry<Employee>(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+            return item;
+        }
+    }
+}
+
+
+----------------------------------------------------------------------------------------
+using FirstAPI.Interfaces;
+using FirstAPI.Models;
+using FirstAPI.Models.DTOs;
+
+namespace FirstAPI.Services
+{
+    public class EmployeeService : IEmployeeService
+    {
+        private readonly IRepository<int, Employee> _employeeRepository;
+
+        public EmployeeService(IRepository<int,Employee> employeeRepo)
+        {
+            _employeeRepository = employeeRepo;
+        }
+        public Employee AddANewEmployee(Employee employee)
+        {
+            return _employeeRepository.Add(employee);
+        }
+
+        public List<Employee> GemEmployeesInASalaryRange(float min, float max)
+        {
+            var employees = _employeeRepository.GetAll().Where(emp=>emp.Salary>=min && emp.Salary<=max);
+            if(employees.Count() > 0)
+            {
+                return employees.ToList();
+            }
+            return null;
+        }
+
+        public List<Employee> GetAllEmployees()
+        {
+           return _employeeRepository.GetAll();
+        }
+
+        public Employee ToggleEmployeeStatus(int id)
+        {
+            var employee = _employeeRepository.Get(id);
+            if (employee!=null)
+            {
+                if (employee.IsActive == null)
+                {
+                    employee.IsActive = false;
+                }
+                employee.IsActive = !employee.IsActive;
+                return _employeeRepository.Update(employee);
+            }
+            return null;
+        }
+
+        public Employee UpdateEmployeePhone(EmployeePhoneDTO employee)
+        {
+            var myemployee = _employeeRepository.Get(employee.Id);
+            if (myemployee != null)
+            {
+                myemployee.Phone = employee.Phone;
+                return _employeeRepository.Update(myemployee);
+            }
+            return null;
+        }
+
+        public Employee UpdateEmployeeSalary(EmployeeSalaryDTO employee)
+        {
+            var myemployee = _employeeRepository.Get(employee.Id);
+            if (myemployee != null)
+            {
+                myemployee.Salary = employee.Salary;
+                return _employeeRepository.Update(myemployee);
+            }
+            return null;
+        }
+    }
+}
+
+
+
+----------------------------------------------------------------------------------------
+
+using FirstAPI.Interfaces;
+using FirstAPI.Models;
+using FirstAPI.Repositories;
+using FirstAPI.Services;
+using Microsoft.EntityFrameworkCore;
+
+namespace FirstAPI
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+
+            builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<CompanyContext>(opts =>
+            {
+                opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            builder.Services.AddScoped<IRepository<int, Employee>, EmployeeRepository>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseAuthorization();
+
+
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
+}
+
+
+----------------------------------------------------------------------------------------
+
+
+using FirstAPI.Interfaces;
+using FirstAPI.Models;
+using FirstAPI.Models.DTOs;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace FirstAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class EmployeeController : ControllerBase
+    {
+        private readonly IEmployeeService _employeeService;
+
+        public EmployeeController(IEmployeeService employeeService)
+        {
+            _employeeService = employeeService;
+        }
+        [HttpGet]
+        public ActionResult Get()
+        {
+            var result = _employeeService.GetAllEmployees();
+            if (result == null)
+            {
+                return NotFound("No employees are there at this moment");
+            }
+            return Ok(result);
+        }
+        [HttpPost]
+        public ActionResult Post(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var result = _employeeService.AddANewEmployee(employee);
+                    return Created("", result);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.Message);
+                }
+            }
+            return BadRequest(ModelState.Keys);
+        }
+        [HttpPut("UpdateStatus")]
+        public ActionResult PutChangeStatus(int id)
+        {
+            try
+            {
+                var result = _employeeService.ToggleEmployeeStatus(id);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("UpdateMaxMin")]
+
+        public ActionResult PutChangesStatus(float min, float max)
+        {
+            try
+            {
+
+                var result = _employeeService.GemEmployeesInASalaryRange(min, max);
+                if (result == null)
+
+                return NotFound();
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+        [HttpPut("Salary")]
+
+        public ActionResult UpdateSalary(EmployeeSalaryDTO empsalary)
+        {
+            try
+            {
+
+                var result = _employeeService.UpdateEmployeeSalary(empsalary);
+                if (result == null)
+
+                return NotFound();
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("Phone")]
+
+        public ActionResult UpdatePhone(EmployeePhoneDTO empphone)
+        {
+            try
+            {
+
+                var result = _employeeService.UpdateEmployeePhone(empphone);
+                if (result == null)
+                return NotFound();
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------
+
+using FirstAPI.Interfaces;
+using FirstAPI.Models;
+using FirstAPI.Repositories;
+using FirstAPI.Services;
+using Microsoft.EntityFrameworkCore;
+
+namespace FirstAPI
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+
+            builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<CompanyContext>(opts =>
+            {
+                opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            builder.Services.AddScoped<IRepository<int, Employee>, EmployeeRepository>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseAuthorization();
+
+
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------
+**Case Study Question: Building a Supplier and Product Management API in .NET Core**
+
+You are tasked with developing a Supplier and Product Management API using .NET Core. The API will be used to manage and retrieve information about suppliers and their associated products for a retail company.
+
+**Requirements:**
+
+1. **Supplier Management:**
+   - Create, read, update, and delete suppliers.
+   - Suppliers should have the following attributes: ID (auto-generated), Name, Email, and Phone Number.
+   - Ensure that email addresses are unique across suppliers.
+   
+2. **Product Management:**
+   - Create, read, update, and delete products.
+   - Products should have the following attributes: ID (auto-generated), Name, Description, Price, and Supplier ID (foreign key).
+   
+3. **Relationships:**
+   - Each product is associated with many supplier.
+   - Ensure that when a supplier is deleted, all their associated products are also deleted, or you can choose to set them to null.
+   
+4. **API Endpoints:**
+   - Implement RESTful API endpoints for suppliers and products.
+   - Include validation to handle bad requests (e.g., invalid data, missing fields).
+   - Implement  filtering for the list endpoints.(Example - Product within a price range, Search supplier by phone)
+   
+5. **Testing:**
+   - Write unit tests to ensure the correctness of your API's functionality.
+
+**Questions:**
+
+1. **API Design (35 points):** How would you design the API endpoints for managing suppliers and products, including the HTTP methods and URL routes? Provide a sample API endpoint structure.
+
+2. **Database Design (15 points):** What would be the database schema for storing supplier and product information? How would you ensure data integrity and enforce relationships between suppliers and products?
+
+3. **Validation and Error Handling (25 points):** Describe how you would handle validation and error responses in your API. What kind of error messages and status codes would you return in case of validation failures or exceptions?
+
+4. **Testing (25 points):** How would you approach testing your API, both unit testing and integration testing? What tools or libraries would you use, and what aspects of the API would you test?
+
+
+
+
+----------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------
