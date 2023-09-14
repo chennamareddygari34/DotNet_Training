@@ -21,7 +21,7 @@ namespace UserProductAPI.Controllers
         }
 
 
-
+        [Authorize(Roles = "Manager")]
         [Authorize]
         [HttpGet]
         public ActionResult Get()

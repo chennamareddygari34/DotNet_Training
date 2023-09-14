@@ -13,8 +13,6 @@ namespace UserProductAPI.Services
         private readonly IRepository<string, User> _userRepository;
         private readonly ITokenService _tokenSevice;
 
-
-
         public UserService(IRepository<string, User> repository, ITokenService tokenService)
         {
             _userRepository = repository;
@@ -38,7 +36,7 @@ namespace UserProductAPI.Services
                     var loggedinUser = new UserDTO
                     {
                         Username = user.Username,
-                        Token = _tokenSevice.GenerateToken(user.Username)
+                        Token = _tokenSevice.GenerateToken(user.Username, user.Role)
                     };
                     return loggedinUser;
                 }
@@ -46,25 +44,21 @@ namespace UserProductAPI.Services
             return null;
         }
 
-
-
         public UserDTO Register(UserDTO userDTO)
         {
             HMACSHA512 hMACSHA512 = new HMACSHA512();
             User user = new User();
             user.Username = userDTO.Username;
             user.Password = hMACSHA512.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password));
+            user.Role = userDTO.Role;
             user.Key = hMACSHA512.Key;
             _userRepository.Add(user);
             var regiteredUser = new UserDTO
             {
                 Username = user.Username,
-                Token = _tokenSevice.GenerateToken(user.Username)
+                Token = _tokenSevice.GenerateToken(user.Username, user.Role)
             };
             return regiteredUser;
         }
-
-
-
     }
 }
