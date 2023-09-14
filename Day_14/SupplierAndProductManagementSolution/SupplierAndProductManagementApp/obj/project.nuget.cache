@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ucXjPqlvbIdnKynIxktcZAQ8dWsJn6fJYH3CCqqLedoaTsc8WT85ruJH/BzlQPfdRmKEsL1dQRpJvl1TbNDVhA==",
+  "dgSpecHash": "sPc64Jflc48gkgArKKVTU6QdGmZkUuJkNR/EGsEK/aAlYZpocOw1AT+XrrIvtFyCdKX69jYkahXGuhnDAYdTIw==",
   "success": true,
-  "projectFilePath": "D:\\.NetTraining\\day14\\SupplierAndProductManagementSolution\\SupplierAndProductManagementApp\\SupplierAndProductManagementApp.csproj",
+  "projectFilePath": "D:\\.NetTraining\\Day_14\\SupplierAndProductManagementSolution\\SupplierAndProductManagementApp\\SupplierAndProductManagementApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chennamareddygari.p\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\chennamareddygari.p\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.21\\microsoft.entityframeworkcore.6.0.21.nupkg.sha512",

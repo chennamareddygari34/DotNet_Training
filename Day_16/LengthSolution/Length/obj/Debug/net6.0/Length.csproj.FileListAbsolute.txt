@@ -1,0 +1,14 @@
+D:\.NetTraining\Day16\LengthSolution\Length\bin\Debug\net6.0\Length.exe
+D:\.NetTraining\Day16\LengthSolution\Length\bin\Debug\net6.0\Length.deps.json
+D:\.NetTraining\Day16\LengthSolution\Length\bin\Debug\net6.0\Length.runtimeconfig.json
+D:\.NetTraining\Day16\LengthSolution\Length\bin\Debug\net6.0\Length.dll
+D:\.NetTraining\Day16\LengthSolution\Length\bin\Debug\net6.0\Length.pdb
+D:\.NetTraining\Day16\LengthSolution\Length\obj\Debug\net6.0\Length.GeneratedMSBuildEditorConfig.editorconfig
+D:\.NetTraining\Day16\LengthSolution\Length\obj\Debug\net6.0\Length.AssemblyInfoInputs.cache
+D:\.NetTraining\Day16\LengthSolution\Length\obj\Debug\net6.0\Length.AssemblyInfo.cs
+D:\.NetTraining\Day16\LengthSolution\Length\obj\Debug\net6.0\Length.csproj.CoreCompileInputs.cache
+D:\.NetTraining\Day16\LengthSolution\Length\obj\Debug\net6.0\Length.dll
+D:\.NetTraining\Day16\LengthSolution\Length\obj\Debug\net6.0\refint\Length.dll
+D:\.NetTraining\Day16\LengthSolution\Length\obj\Debug\net6.0\Length.pdb
+D:\.NetTraining\Day16\LengthSolution\Length\obj\Debug\net6.0\Length.genruntimeconfig.cache
+D:\.NetTraining\Day16\LengthSolution\Length\obj\Debug\net6.0\ref\Length.dll

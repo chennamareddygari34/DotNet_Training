@@ -1,0 +1,279 @@
+Model
+   User
+     Username string
+     Password byte[]
+     Key byte[]
+
+   Product
+     Id
+     Name
+     Price
+     Quantity
+
+   UserDTO
+     Username string
+     Password string?
+     Token string?
+
+1) Model
+2) Context - Migration
+3) Interfaces
+4) Repository
+5) Services
+6) Controller
+-----------------------------------------
+
+
+
+"Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.22" 
+
+
+
+-----------------------------------------------------------------------------------------------------------
+
+namespace FirstAPI.Interfaces
+{
+    public interface ITokenService
+    {
+        public string GenerateToken(string username);
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------
+using FirstAPI.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+namespace FirstAPI.Services
+{
+    public class TokenService : ITokenService
+    {
+        byte[] key;
+        public TokenService(IConfiguration configuration) 
+        {
+            key = Encoding.UTF8.GetBytes(configuration.GetValue(typeof(string), "TokenKey").ToString());
+        }
+        public string GenerateToken(string username)
+        {
+            string token = string.Empty;
+            //Username for the token - from the parameter
+            var subject = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Name, username)
+            });
+            var tokenDescription = new SecurityTokenDescriptor();
+            //Describing the token
+            tokenDescription.Subject = subject;
+            tokenDescription.Expires = DateTime.UtcNow.AddDays(1);
+            var signature = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
+            tokenDescription.SigningCredentials = signature;
+            var tokenHandler = new JwtSecurityTokenHandler();
+            //Generating the token object
+            var tokenObject = tokenHandler.CreateToken(tokenDescription);
+            //Getting the t oken as string from the object
+            token = tokenHandler.WriteToken(tokenObject);
+            return token;
+        }
+    }
+}
+
+
+
+-----------------------------------------------------------------------------------------------------------
+
+using FirstAPI.Models;
+using FirstAPI.Models.DTOs;
+
+namespace FirstAPI.Interfaces
+{
+    public interface IUserService
+    {
+        public UserDTO Login(UserDTO userDTO);
+        public UserDTO Register(UserDTO userDTO);
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------
+
+using FirstAPI.Interfaces;
+using FirstAPI.Models;
+using FirstAPI.Models.DTOs;
+using System.Security.Cryptography;
+using System.Text;
+
+namespace FirstAPI.Services
+{
+    public class UserService : IUserService
+    {
+        private readonly IRepository<string, User> _userRepository;
+        private readonly ITokenService _tokenSevice;
+
+        public UserService(IRepository<string,User> repository,ITokenService tokenService) 
+        { 
+            _userRepository = repository;
+            _tokenSevice = tokenService;
+        }
+        public UserDTO Login(UserDTO userDTO)
+        {
+            var user = _userRepository.Get(userDTO.Username);
+            if(user != null)
+            {
+                var dbPass = user.Password;
+                HMACSHA512 hMACSHA512 = new HMACSHA512(user.Key);
+                var userPass = hMACSHA512.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password));
+                if(userPass.Length==dbPass.Length)
+                {
+                    for(int i = 0; i < dbPass.Length; i++)
+                    {
+                        if (userPass[i] != dbPass[i])
+                            return null;
+                    }
+                    var loggedinUser = new UserDTO { Username = user.Username, 
+                        Token = _tokenSevice.GenerateToken(user.Username) };
+                    return loggedinUser;
+                }
+            }
+            return null;
+        }
+
+        public UserDTO Register(UserDTO userDTO)
+        {
+            HMACSHA512 hMACSHA512 = new HMACSHA512();
+            User user = new User();
+            user.Username = userDTO.Username;
+            user.Password = hMACSHA512.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password));
+            user.Key = hMACSHA512.Key;
+            _userRepository.Add(user);
+            var regiteredUser = new UserDTO
+            {
+                Username = user.Username,
+                Token = _tokenSevice.GenerateToken(user.Username)
+            };
+            return regiteredUser;
+        }
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------
+using FirstAPI.Interfaces;
+using FirstAPI.Models;
+using FirstAPI.Repositories;
+using FirstAPI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Diagnostics;
+using System.Text;
+
+namespace FirstAPI
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+
+            builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(option =>
+            {
+                option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
+                option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter a valid token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
+                option.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
+            });
+
+
+
+            var stringkey = builder.Configuration.GetValue(typeof(string), "TokenKey").ToString();
+            var key = Encoding.UTF8.GetBytes(stringkey);
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(opts =>
+                    {
+                        opts.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(key)
+                        };
+                    });
+
+            builder.Services.AddDbContext<CompanyContext>(opts =>
+            {
+                opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+ 
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQmFidSIsIm5iZiI6MTY5NDY3ODY1NSwiZXhwIjoxNjk0NzY1MDU1LCJpYXQiOjE2OTQ2Nzg2NTV9.QAlltL2uaNKwXZ9U3IEyV6EcRrsCgu6goJN3gdW9sGY
+
+-----------------------------------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------------------------------

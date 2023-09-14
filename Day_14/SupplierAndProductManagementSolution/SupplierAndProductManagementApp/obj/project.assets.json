@@ -1254,11 +1254,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\.NetTraining\\day14\\SupplierAndProductManagementSolution\\SupplierAndProductManagementApp\\SupplierAndProductManagementApp.csproj",
+      "projectUniqueName": "D:\\.NetTraining\\Day_14\\SupplierAndProductManagementSolution\\SupplierAndProductManagementApp\\SupplierAndProductManagementApp.csproj",
       "projectName": "SupplierAndProductManagementApp",
-      "projectPath": "D:\\.NetTraining\\day14\\SupplierAndProductManagementSolution\\SupplierAndProductManagementApp\\SupplierAndProductManagementApp.csproj",
+      "projectPath": "D:\\.NetTraining\\Day_14\\SupplierAndProductManagementSolution\\SupplierAndProductManagementApp\\SupplierAndProductManagementApp.csproj",
       "packagesPath": "C:\\Users\\chennamareddygari.p\\.nuget\\packages\\",
-      "outputPath": "D:\\.NetTraining\\day14\\SupplierAndProductManagementSolution\\SupplierAndProductManagementApp\\obj\\",
+      "outputPath": "D:\\.NetTraining\\Day_14\\SupplierAndProductManagementSolution\\SupplierAndProductManagementApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1438,11 +1438,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\.NetTraining\\Day16\\CardSolution\\CardTesting\\CardTesting.csproj",
+      "projectUniqueName": "D:\\.NetTraining\\Day_16\\CardSolution\\CardTesting\\CardTesting.csproj",
       "projectName": "CardTesting",
-      "projectPath": "D:\\.NetTraining\\Day16\\CardSolution\\CardTesting\\CardTesting.csproj",
+      "projectPath": "D:\\.NetTraining\\Day_16\\CardSolution\\CardTesting\\CardTesting.csproj",
       "packagesPath": "C:\\Users\\chennamareddygari.p\\.nuget\\packages\\",
-      "outputPath": "D:\\.NetTraining\\Day16\\CardSolution\\CardTesting\\obj\\",
+      "outputPath": "D:\\.NetTraining\\Day_16\\CardSolution\\CardTesting\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1463,8 +1463,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\.NetTraining\\Day16\\CardSolution\\CardValidationAPI\\CardValidationAPI.csproj": {
-              "projectPath": "D:\\.NetTraining\\Day16\\CardSolution\\CardValidationAPI\\CardValidationAPI.csproj"
+            "D:\\.NetTraining\\Day_16\\CardSolution\\CardValidationAPI\\CardValidationAPI.csproj": {
+              "projectPath": "D:\\.NetTraining\\Day_16\\CardSolution\\CardValidationAPI\\CardValidationAPI.csproj"
             }
           }
         }
