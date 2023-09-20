@@ -1,0 +1,44 @@
+export class Employee{
+    constructor(public id:number=0,
+        public name:string="",
+        public age:number=18) 
+        {
+
+        }
+    
+}
+-----------------------------------------
+import { Component } from '@angular/core';
+import { Employee } from './employee';
+
+@Component({
+  selector: 'app-employee',
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.css']
+})
+export class EmployeeComponent {
+employee:Employee = new Employee(101,"Ramu",23);
+
+changeId(eid:any){
+  this.employee.id=eid;
+}
+
+}
+---------------------------------------------
+<div class="alert alert-dark">
+    Employee Id: <input class="form-control" type="number" [value]="employee.id" #eid 
+    (change)="changeId(eid.value)">
+    <br/>
+    Employee Name : <input class="form-control" type="text" [value]="employee.name">
+    <br/>
+    Employee Age : <input class="form-control" type="number" [value]="employee.age">
+
+</div>
+
+<div class="alert alert-primary">
+    Employee Id: {{employee.id}}
+    <br/>
+    Employee Name : {{employee.name}}
+    <br/>
+    Employee Age : {{employee.age}}
+</div>

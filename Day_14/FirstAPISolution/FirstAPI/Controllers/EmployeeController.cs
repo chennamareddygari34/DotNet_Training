@@ -68,7 +68,7 @@ namespace FirstAPI.Controllers
                 var result = _employeeService.GemEmployeesInASalaryRange(min, max);
                 if (result == null)
 
-                return NotFound();
+                    return NotFound();
 
                 return Ok(result);
             }
@@ -89,7 +89,7 @@ namespace FirstAPI.Controllers
                 var result = _employeeService.UpdateEmployeeSalary(empsalary);
                 if (result == null)
 
-                return NotFound();
+                    return NotFound();
 
                 return Ok(result);
             }
@@ -108,7 +108,7 @@ namespace FirstAPI.Controllers
 
                 var result = _employeeService.UpdateEmployeePhone(empphone);
                 if (result == null)
-                return NotFound();
+                    return NotFound();
 
                 return Ok(result);
             }
