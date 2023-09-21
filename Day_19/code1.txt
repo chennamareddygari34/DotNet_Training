@@ -1,0 +1,196 @@
+export class Employee{
+    constructor(public id:number=0,
+        public name:string="",
+        public salary:number =0,
+        public age:number=18,
+        public isActive:boolean = false) 
+        {
+
+        }
+    
+}
+----------------------------------------
+<div *ngIf="employees.length > 0 else noemployee"  >
+    <div class="alert alert-primary" *ngFor="let employee of employees">
+
+        Employee Id: {{employee.id}}
+        <br/>
+        Employee Name : {{employee.name}}
+        <br/>
+        Employee Age : {{employee.age}}
+        <br/>
+        Is Active: {{employee.isActive}}
+    </div>
+</div>
+    
+<ng-template #noemployee >
+    <div class="alert alert-warning">
+        No employees yet
+    </div>
+</ng-template>
+----------------------------------------------------------
+
+
+
+
+
+
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Employee } from "../employee/employee";
+
+@Injectable()
+export class EmployeeWebService{
+
+    constructor(private httpClient:HttpClient){
+
+    }
+    getToken():string{
+        return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZ2ltdSIsInJvbGUiOiJNYW5hZ2VyIiwibmJmIjoxNjk1MTg3MDQxLCJleHAiOjE2OTUyNzM0NDEsImlhdCI6MTY5NTE4NzA0MX0.Kr7Bd3kX-nY64nTR3DntaaKnWyDzfnpDuMsCb0I8Mtg";
+    }
+    getEmployees(){
+        return this.httpClient.get("http://localhost:5159/api/Employee");
+    }
+
+    addEmployee(employee:Employee){
+        const header = new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':'Bearer '+this.getToken()
+        });
+        console.log(employee);
+        const requestOptions = {headers:header};
+        return this.httpClient.post("http://localhost:5159/api/Employee",employee,requestOptions);
+    }
+    deleteEmployee(eid:number){
+        const header = new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':'Bearer '+this.getToken()
+        });
+        console.log(eid);
+        const requestOptions = {headers:header};
+        return this.httpClient.put("http://localhost:5159/api/Employee/UpdateStatus?id="+eid,requestOptions);
+    }
+}
+------------------------------------------------------
+import { Component } from '@angular/core';
+import { Employee } from '../employee/employee';
+import { EmployeeWebService } from '../services/employeeweb.service';
+
+@Component({
+  selector: 'app-delete-emp',
+  templateUrl: './delete-emp.component.html',
+  styleUrls: ['./delete-emp.component.css']
+})
+export class DeleteEmpComponent {
+  employee:Employee= new Employee();
+  employees:Employee[]=[];
+  constructor(private employeeService:EmployeeWebService){
+    this.employeeService.getEmployees().subscribe(emp=>{
+      this.employees = emp as Employee[];
+    })
+  }
+  selectChange(eid:any){
+    for (let index = 0; index < this.employees.length; index++) {
+      if(this.employees[index].id==eid)
+      {
+        this.employee = this.employees[index];
+        break;
+      }
+      
+    }
+  }
+
+  deleteEmployee(){
+    this.employeeService.deleteEmployee(this.employee.id).subscribe(emp=>{
+      if(emp){
+        alert("employee status changed")
+      }
+    })
+    this.employee = new Employee();
+  }
+}
+-------------------------------------------
+export class User{
+    constructor(public username:string="",
+    public password:string="",
+    public token:string="",
+    public role:string=""){
+        
+    }
+}
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { User } from "../login/user";
+
+@Injectable()
+export class UserService{
+    constructor(private httpClient:HttpClient){
+
+    }
+    login(user:User){
+       return this.httpClient.post("http://localhost:5159/api/User/Login",user);
+    }
+}
+---------------------------------
+import { Component } from '@angular/core';
+import { User } from './user';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent {
+user:User = new User();
+
+constructor(private userService:UserService,private router:Router){
+
+}
+
+loginClick(){
+  this.userService.login(this.user).subscribe(result=>{
+    this.user = result as User;
+    sessionStorage.setItem("token",this.user.token);
+    alert("Login success");
+    this.router.navigateByUrl("home")
+  })
+}
+}
+-------------------------------------
+<div>
+    <table>
+        <tr>
+            <td>
+                <label class="form-control">Usename</label>
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="user.username">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="form-control">Password</label>
+            </td>
+            <td>
+                <input type="password" class="form-control" [(ngModel)]="user.password">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button (click)="loginClick()" class="btn btn-primary">Login</button>
+            </td>
+            <td>
+                <button class="btn btn-danger">Reset</button>
+            </td>
+        </tr>
+    </table>
+</div>
+-----------------------------------------------------------------------------------------------------------------------
+{
+  "username": "Babu",
+  "password": null,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQmFidSIsInJvbGUiOiJNYW5hZ2VyIiwibmJmIjoxNjk1Mjc5NzI3LCJleHAiOjE2OTUzNjYxMjcsImlhdCI6MTY5NTI3OTcyN30.VsPgFFi8I1l4XfjaeUcgphTxlE276axh4-XWajN8UM4",
+  "role": null
+}

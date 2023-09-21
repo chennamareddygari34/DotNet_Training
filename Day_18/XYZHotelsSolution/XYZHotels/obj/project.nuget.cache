@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "a4WipmtTFzwF6nK9Gl285Gjfqfyxqb0ffe3HI+IrW/WQdqxebvw2W8BCVcXeC2zjft1zyop3Zlmx+HkzZpicqA==",
+  "dgSpecHash": "64oKmltz7naMbo9WUa8ZMo5AFFomPrpXOym0MmDYtVqJjHvEheL5j3lh61eJWawriH1eMZbhr9NldLpsBupSzA==",
   "success": true,
-  "projectFilePath": "D:\\.NetTraining\\Day_17\\XYZHotelsSolution\\XYZHotels\\XYZHotels.csproj",
+  "projectFilePath": "D:\\.NetTraining\\Day_18\\XYZHotelsSolution\\XYZHotels\\XYZHotels.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chennamareddygari.p\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\chennamareddygari.p\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.22\\microsoft.aspnetcore.authentication.jwtbearer.6.0.22.nupkg.sha512",

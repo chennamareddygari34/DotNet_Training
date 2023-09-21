@@ -1,0 +1,36 @@
+<div *ngIf="products.length > 0 else noproduct"  >
+
+    <div class="alert alert-primary" *ngFor="let product of products">
+
+        <div *ngIf="product.quantity!=0">
+
+        Product Id: {{product.id}}
+
+        <br/>
+
+        Product Name : {{product.name}}
+
+        <br/>
+
+        Product Price : {{product.price}}
+
+        <br/>
+
+        Product Quantity : {{product.quantity}}
+
+    </div>
+
+    </div>
+
+</div>
+
+   
+<ng-template #noproduct >
+
+    <div class="alert alert-warning">
+
+        No products yet
+
+    </div>
+
+</ng-template>

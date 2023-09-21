@@ -1659,11 +1659,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\.NetTraining\\Day_17\\XYZHotelsSolution\\XYZHotels\\XYZHotels.csproj",
+      "projectUniqueName": "D:\\.NetTraining\\Day_18\\XYZHotelsSolution\\XYZHotels\\XYZHotels.csproj",
       "projectName": "XYZHotels",
-      "projectPath": "D:\\.NetTraining\\Day_17\\XYZHotelsSolution\\XYZHotels\\XYZHotels.csproj",
+      "projectPath": "D:\\.NetTraining\\Day_18\\XYZHotelsSolution\\XYZHotels\\XYZHotels.csproj",
       "packagesPath": "C:\\Users\\chennamareddygari.p\\.nuget\\packages\\",
-      "outputPath": "D:\\.NetTraining\\Day_17\\XYZHotelsSolution\\XYZHotels\\obj\\",
+      "outputPath": "D:\\.NetTraining\\Day_18\\XYZHotelsSolution\\XYZHotels\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

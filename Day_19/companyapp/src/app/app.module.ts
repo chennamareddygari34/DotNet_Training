@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SecondComponent } from './second/second.component';
@@ -13,24 +12,50 @@ import { EmployeeService } from './services/employee.service';
 import { DeleteEmpComponent } from './delete-emp/delete-emp.component';
 import {HttpClientModule} from '@angular/common/http';
 import { EmployeeWebService } from './services/employeeweb.service';
+import { LoginComponent } from './login/login.component';
+import { UserService } from './services/user.services';
+
+
 @NgModule({
+
   declarations: [
+
     AppComponent,
+
     FirstComponent,
+
     SecondComponent,
+
     ThirdComponent,
+
     EmployeeComponent,
+
     EmployeesComponent,
-    DeleteEmpComponent
+
+    DeleteEmpComponent,
+
+    LoginComponent
+
+   
+
   ],
+
   imports: [
+
     BrowserModule,
+
     AppRoutingModule,
+
     FormsModule,
+
     HttpClientModule
-    
+
   ],
-  providers: [EmployeeService,EmployeeWebService],
+
+  providers: [EmployeeService,EmployeeWebService,UserService], //injecting services
+
   bootstrap: [AppComponent]
+
 })
+
 export class AppModule { }
