@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SecondComponent } from './second/second.component';
 import { FirstComponent } from './first/first.component';
+import { SecondComponent } from './second/second.component';
 import { ThirdComponent } from './third/third.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { FormsModule } from '@angular/forms';
@@ -13,49 +14,38 @@ import { DeleteEmpComponent } from './delete-emp/delete-emp.component';
 import {HttpClientModule} from '@angular/common/http';
 import { EmployeeWebService } from './services/employeeweb.service';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './services/auth.service';
+import { JwtModule } from '@auth0/angular-jwt';
 import { UserService } from './services/user.services';
 
+export function tokenGetter(){
+  return sessionStorage.getItem("token");
+}
 
 @NgModule({
-
   declarations: [
-
     AppComponent,
-
     FirstComponent,
-
     SecondComponent,
-
     ThirdComponent,
-
     EmployeeComponent,
-
     EmployeesComponent,
-
     DeleteEmpComponent,
-
     LoginComponent
-
-   
-
   ],
-
   imports: [
-
     BrowserModule,
-
     AppRoutingModule,
-
     FormsModule,
-
-    HttpClientModule
-
+    HttpClientModule,
+      JwtModule.forRoot({
+        config:{
+          tokenGetter:tokenGetter,
+          allowedDomains:["http://localhost:5159/"]
+        }
+    })
   ],
-
-  providers: [EmployeeService,EmployeeWebService,UserService], //injecting services
-
+  providers: [EmployeeService,EmployeeWebService,UserService,AuthGuard],
   bootstrap: [AppComponent]
-
 })
-
 export class AppModule { }

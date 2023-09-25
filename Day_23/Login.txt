@@ -1,0 +1,35 @@
+http://localhost:5156/api/User/Register
+
+{
+  "userName": "Babu",
+  "password": null,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQmFidSIsInJvbGUiOiJzdHJpbmciLCJuYmYiOjE2OTU0ODg0OTEsImV4cCI6MTY5NTQ4ODU1MSwiaWF0IjoxNjk1NDg4NDkxfQ.eyzI3jg1ldHS705uTpViFlzgr16CZHTRO0FkWmxi2qo",
+  "role": null
+}
+
+{
+  "userName": "Babu",
+  "password": "Babu@123",
+  "token": "string",
+  "role": "string"
+}
+
+
+http://localhost:5156/api/User/Login
+-------------------------------------------------------
+http://localhost:5156/api/Hotel
+
+
+{
+  "userName": "Pavan",
+  "password": null,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUGF2YW4iLCJyb2xlIjoiTWFuYWdlciIsIm5iZiI6MTY5NTUzMjY4NywiZXhwIjoxNjk1NTMyODA3LCJpYXQiOjE2OTU1MzI2ODd9.0_-icHfbmImWLd3vW3UU6dqXfcZnIQXvYcmMqUPNqnA",
+  "role": null
+}
+
+{
+  "userName": "Pavan",
+  "password": "Pavan@123",
+  "token": "string",
+  "role": "Manager"
+}

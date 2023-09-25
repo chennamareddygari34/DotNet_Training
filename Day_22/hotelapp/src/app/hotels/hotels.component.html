@@ -1,0 +1,19 @@
+<div *ngIf="hotels.length > 0 else nohotel"  >
+    <div class="alert alert-primary" *ngFor="let hotel of hotels">
+
+        Hotel Id: {{hotel.id}}
+        <br/>
+        Hotel Name : {{hotel.name}}
+        <br/>
+        Hotel location : {{hotel.location}}
+        <br/>
+     
+    
+    </div>
+</div>
+    <!-- for else part we have to use ng-tempalte -->
+<ng-template #nohotel >
+    <div class="alert alert-warning">
+        No Hotels yet
+    </div>
+</ng-template>

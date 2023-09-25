@@ -1,0 +1,10 @@
+<div class="alert alert-dark">
+    <!---- Employee Id: <input class="form-control" type="number" [value]="employee.id" #eid 
+     (change)="changeId(eid.value)"> -->
+     <br/>
+     Hotel Name : <input class="form-control" type="text" [(ngModel)]="hotel.hotelName">
+     <br/>
+     Facility : <input class="form-control" type="text" [(ngModel)]="hotel.facility">
+     <br/>
+     <button  (click)="addHotel()" class="btn btn-dark"> Add Hotel<span [class]="className"></span></button>
+ </div>

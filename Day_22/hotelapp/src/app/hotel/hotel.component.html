@@ -1,0 +1,16 @@
+<!-- <p>hotel works!</p> -->
+<div class="alert alert-dark">
+    <!-- one Way Binding //here we are taking the value from user and storing in eid then we are changing -->
+    <!-- Employee Id: <input class="form-control" type="number" [value]="employee.id" #eid 
+    (change)="changeId(eid.value)">
+    <br/> -->
+    <!-- Two Way Binding -->
+    Hotel Name : <input class="form-control" type="text" [(ngModel)]="hotel.name">
+    <br/>
+    Hotel location : <input class="form-control" type="text" [(ngModel)]="hotel.location">
+    <br/>
+   
+    <!-- Adding new Hotel -->
+    
+    <button  (click)="addHotel()" class="btn btn-dark"> Add Hotel<span [class]="className"></span></button>
+</div>

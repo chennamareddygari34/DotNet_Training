@@ -1,0 +1,10 @@
+h1{
+    text-align: center;
+}
+h1{
+    background-color: rgb(0, 255, 145);
+}
+.logout{
+    position: absolute;
+    float: right;
+}

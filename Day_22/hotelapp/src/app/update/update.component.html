@@ -1,0 +1,38 @@
+<!-- <div class="alert alert-danger">
+    <select (change)="selectChange(hid.value)" 
+            #hid 
+            class="form-control">
+        <option>--select--</option>
+        <option *ngFor="let htl of hotels" [value]="htl.id">
+            {{htl.id}}--{{htl.hotelName}}--{{htl.facility}}
+        </option>
+    </select>
+    <div *ngIf="hotel.id != 0">
+        Hotel Id : {{hotel.id}}
+        <br/>
+        Hotel Name : {{hotel.hotelName}}
+        <br/>
+        Hotel Facility : {{hotel.facility}}
+        <br/>
+        <button (click)="updateHotel()" class="btn btn-danger">Update Hotel</button>
+    </div>
+    <button (click)="show()" class="btn btn-danger">Show First</button>  
+
+</div> -->
+
+<div class="alert alert-dark">
+    <select (change)="selectChange(hid.value)" 
+            #hid 
+            class="form-control">
+        <option>--select--</option>
+        <option *ngFor="let htl of hotels" [value]="htl.id">
+            {{htl.id}}--{{htl.name}}--{{htl.location}}
+        </option>
+    </select>
+    Hotel Id: <input class="form-control" type="number" [value]="hotel.id" #eid 
+     (change)="changeId(eid.value)">
+     <br/>
+     Hotel Name : <input class="form-control" type="text" [(ngModel)]="hotel.name">
+     <br/>
+     <button  (click)="updateHotel()" class="btn btn-dark"> Update Hotel</button>
+ </div>

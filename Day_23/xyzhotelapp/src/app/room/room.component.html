@@ -1,0 +1,12 @@
+<div class="alert alert-dark">
+     Room Id: <input class="form-control" type="number" [value]="room.roomId" #rid 
+     (change)="changeId(rid.value)">
+     <br/>
+     Bed Type : <input class="form-control" type="text" [(ngModel)]="room.bedType">
+     <br/>
+     Balcony : <input class="form-control" type="text" [(ngModel)]="room.balcony">
+     <br/>
+     Price : <input class="form-control" type="number" [(ngModel)]="room.price">
+     <br/>
+     <button  (click)="addRoom()" class="btn btn-dark"> Add Room<span [class]="className"></span></button>
+ </div>

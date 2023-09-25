@@ -1,0 +1,41 @@
+{
+  "userName": "Babu",
+  "password": null,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQmFidSIsInJvbGUiOiJNYW5hZ2VyIiwibmJmIjoxNjk1MzI3ODc1LCJleHAiOjE2OTU0MTQyNzUsImlhdCI6MTY5NTMyNzg3NX0.AqRkg2AGGfw87EvpHAGTXvjsgB1ArO-OaSUM4xpEOVI",
+  "role": null
+}
+
+http://localhost:5268/api/User/Register
+
+--------------------------------------------------------
+http://localhost:5268/api/Hotel
+
+http://localhost:5268/api/Hotel
+
+http://localhost:5268/api/Hotel/UpdateHotelName
+--------------------------------------------------------------
+http://localhost:5268/api/Room
+
+http://localhost:5268/api/Room
+
+http://localhost:5268/api/Room/UpdatePrice
+---------------------------------------------------------
+http://localhost:5268/api/User/Login
+
+{
+  "userName": "Babu",
+  "password": null,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQmFidSIsInJvbGUiOiJNYW5hZ2VyIiwibmJmIjoxNjk1MzI4ODg1LCJleHAiOjE2OTU0MTUyODUsImlhdCI6MTY5NTMyODg4NX0.OT-Fh5SdemKoZLEkAlW5l3JsjSbNyFgxob7m7Tx2grI",
+  "role": null
+}
+--------------------------------------------------------
+{
+  "userName": "Pavan",
+  "password": null,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUGF2YW4iLCJyb2xlIjoic3RyaW5nIiwibmJmIjoxNjk1MzUyNzI0LCJleHAiOjE2OTU0MzkxMjQsImlhdCI6MTY5NTM1MjcyNH0.7MToSaXndCAOR8LE298mCBKmQ0XwSKs-uByI1Cf2de0",
+  "role": null
+}
+
+
+
+

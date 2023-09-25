@@ -1,0 +1,18 @@
+<div class="alert alert-dark">
+    <select (change)="selectChange(hid.value)" 
+            #hid 
+            class="form-control">
+        <option>--select--</option>
+        <option *ngFor="let htl of rooms" [value]="htl.roomId">
+            {{htl.roomId}}--{{htl.balcony}}--{{htl.price}}
+        </option>
+    </select>
+    <!---- Employee Id: <input class="form-control" type="number" [value]="employee.id" #eid 
+     (change)="changeId(eid.value)"> -->
+     <br/>
+     Balcony : <input class="form-control" type="text" [(ngModel)]="room.balcony">
+     <br/>
+     Price : <input class="form-control" type="number" [(ngModel)]="room.price">
+     <br/>
+     <button  (click)="updateRoom()" class="btn btn-dark"> Update Room</button>
+ </div>

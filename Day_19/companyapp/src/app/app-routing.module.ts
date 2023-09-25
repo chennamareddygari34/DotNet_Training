@@ -6,11 +6,12 @@ import { DeleteEmpComponent } from './delete-emp/delete-emp.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { LoginComponent } from './login/login.component';
 import { FirstComponent } from './first/first.component';
+import { AuthGuard } from './services/auth.service';
 
 const routes: Routes = [
     {path: 'home', component: SecondComponent},
     {path: 'employees',component:EmployeesComponent},
-    {path: 'add', component: EmployeeComponent},
+    {path: 'add', component: EmployeeComponent,canActivate:[AuthGuard]},
     {path:'delete',component:DeleteEmpComponent,children:[
 
       {path:'first',component:FirstComponent }

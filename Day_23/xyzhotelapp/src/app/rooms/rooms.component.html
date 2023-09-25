@@ -1,0 +1,19 @@
+<div *ngIf="rooms.length > 0 else noroom"  >
+    <div class="alert alert-primary" *ngFor="let room of rooms">
+
+        Room Id: {{room.roomId}}
+        <br/>
+        Bed Type : {{room.bedType}}
+        <br/>
+        balcony : {{room.balcony}}
+        <br/>
+        price : {{room.price}}
+    </div>
+</div>
+    
+<ng-template #noroom >
+    <div class="alert alert-warning">
+        No rooms available 
+    </div>
+</ng-template>
+
