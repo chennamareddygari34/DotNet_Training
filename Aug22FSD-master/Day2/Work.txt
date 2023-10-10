@@ -1,0 +1,24 @@
+Model -> DLL
+  Overriding -> ToString()  
+  
+Use Repository Pattern
+  Iterface - CRUD methods
+  Implement the interface - > Abstract the required behaviour
+
+Business Logic
+  Filters - Veg/Non-Veg
+  GetByRange - min & max
+
+Consume
+
+-----------------------------------
+public
+private
+protected
+internal
+internal protected
+private protected
+
+https://dev.to/genichm/design-patterns-with-examples-in-c-2588
+
+https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions
