@@ -26,7 +26,7 @@ namespace XYZHotels.Services
             var tokenDescription = new SecurityTokenDescriptor();
             //Describing the token
             tokenDescription.Subject = subject;
-            tokenDescription.Expires = DateTime.UtcNow.AddMinutes(5);
+            tokenDescription.Expires = DateTime.UtcNow.AddMinutes(1);
             var signature = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
             tokenDescription.SigningCredentials = signature;
             var tokenHandler = new JwtSecurityTokenHandler();

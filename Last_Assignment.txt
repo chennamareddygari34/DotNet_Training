@@ -1,0 +1,167 @@
+Collaborating in Git involves working with others on a shared codebase. Git provides a robust set of tools for collaborative development. Here are the essential steps to collaborate in Git:
+
+1. **Create a Git Repository**:
+   - If you're starting a new project, create a Git repository on a Git hosting platform like GitHub, GitLab, or Bitbucket.
+   - If you're joining an existing project, clone the repository to your local machine using `git clone`.
+
+   ```bash
+   # To clone a repository
+   git clone <repository_url>
+   ```
+
+2. **Configure Git**:
+   - Set your Git username and email globally, which will be used for your commits.
+
+   ```bash
+   git config --global user.name "Your Name"
+   git config --global user.email "your@email.com"
+   ```
+
+3. **Create a Branch**:
+   - Create a new branch for your work. This allows you to work on a feature or bug fix without affecting the main codebase.
+
+   ```bash
+   # Create and switch to a new branch
+   git checkout -b feature-branch
+   ```
+
+4. **Make Changes**:
+   - Write and test your code changes.
+
+5. **Stage Changes**:
+   - Use `git add` to stage your changes for commit.
+
+   ```bash
+   # Stage all changes
+   git add .
+   ```
+
+6. **Commit Changes**:
+   - Commit your staged changes with a descriptive commit message.
+
+   ```bash
+   git commit -m "Add feature X"
+   ```
+
+7. **Push Changes**:
+   - Push your branch to the remote repository to share your changes with others.
+
+   ```bash
+   git push origin feature-branch
+   ```
+
+8. **Create a Pull Request (PR)**:
+   - If you're working on a platform like GitHub, create a Pull Request (PR) to propose your changes to the main codebase.
+   - Describe your changes in the PR and request a review from your collaborators.
+
+9. **Review and Discuss**:
+   - Collaborators can review your code in the PR, leave comments, and suggest changes.
+
+10. **Make Changes as Needed**:
+    - Address the feedback and make necessary changes to your code.
+
+11. **Merge the PR**:
+    - Once the PR is approved, it can be merged into the main branch.
+
+12. **Pull Changes Locally**:
+    - After the PR is merged, update your local repository with the latest changes from the main branch.
+
+    ```bash
+    # Switch to the main branch
+    git checkout main
+
+    # Pull the latest changes from the remote main branch
+    git pull origin main
+    ```
+
+13. **Delete Feature Branch**:
+    - You can delete the feature branch both locally and remotely after it's merged and no longer needed.
+
+    ```bash
+    # Delete the local feature branch
+    git branch -d feature-branch
+
+    # Delete the remote feature branch
+    git push origin --delete feature-branch
+    ```
+
+14. **Repeat**:
+    - Continue collaborating by creating new branches and following the same process for each feature or bug fix.
+
+These steps provide a basic workflow for collaborating with Git. Keep in mind that in larger projects, you may encounter more complex branching strategies, code review workflows, and other practices to ensure efficient and organized collaboration.
+
+
+
+--------------------------------------------------
+Shopping Application
+   API -> User, Products, Orders
+
+
+FE
+  List -> No Login +Picture
+  Buy -> Login
+      Add items to cart
+      Checkout -> Place order
+      SHow order confirmation
+
+Simple shopping app using .NET Core for the backend and Angular for the frontend involves several steps, 
+including 
+	setting up the project, 
+	creating models, 
+	implementing CRUD operations, 
+	and building the user interface.
+
+**Caselet: Building a Simple Shopping App**
+
+**Scenario:**
+You are tasked with developing a basic shopping app that allows users to view a list of products, add them to their cart, and place orders. The app should have a user-friendly interface and a secure backend.
+
+**Requirements:**
+1. Backend should be developed using .NET Core.
+2. Frontend should be developed using Angular.
+3. Users can view a list of products with details like name, price, and image.
+4. Users can add products to their shopping cart.
+5. Users can view their shopping cart and remove items from it.
+6. Users can place an order, which should be stored in the database.
+7. Authentication and authorization should be implemented to secure the app.
+
+**Steps:**
+
+1. **Setting Up the Backend:**
+   - Create a new .NET Core Web API project.
+   - Define models for `Product`, `User`, and `Order`.
+   - Implement controllers and actions for CRUD operations on products and orders.
+   - Implement user authentication and authorization using JWT (JSON Web Tokens).
+
+2. **Setting Up the Frontend:**
+   - Create a new Angular project.
+   - Design a user-friendly UI with components for displaying products, a shopping cart, and order placement.
+   - Implement routing to navigate between different views (e.g., product list, cart, and order placement).
+   - Use Angular services to make HTTP requests to the backend API for fetching products, managing the cart, and placing orders.
+
+3. **Product Listing:**
+   - Display a list of products with details on the product listing page.
+   - Include an "Add to Cart" button for each product to allow users to add items to their cart.
+
+4. **Shopping Cart:**
+   - Create a shopping cart component to display the items added to the cart.
+   - Allow users to view and update the quantity of items in the cart.
+   - Implement a "Remove" button for each item in the cart.
+
+5. **Order Placement:**
+   - Create a checkout page where users can review their cart and place an order.
+   - Implement the order placement logic to send the order data to the backend.
+   - Provide a confirmation message after a successful order placement.
+
+6. **Authentication and Authorization:**
+   - Implement user registration and login functionality in the Angular app.
+   - Secure API endpoints by checking user roles and validating JWT tokens.
+   - Ensure that only authenticated users can place orders.
+
+7. **Testing :**
+   - Test the application thoroughly to ensure it meets the requirements.
+   
+8. **Additional Features (Optional):**
+   - Implement search and filtering for products.
+   - Add product categories and allow users to browse products by category.
+   - Implement user profiles and order history.

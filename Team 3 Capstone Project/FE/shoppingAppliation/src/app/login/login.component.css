@@ -1,0 +1,84 @@
+
+.abc{
+    font-family: Arial, sans-serif;
+    background-color:white;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .login-container {
+    background-color:white;
+    box-shadow: 0 0 10px rgba(223, 217, 217, 0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    border-radius: 8px;
+  }
+  
+  .login-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .login-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .login-container button:hover {
+    background-color: #45a049;
+  }
+  
+  .login-container p {
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  .login-container a {
+    color: #4caf50;
+  }
+  
+
+  .abc {
+    background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20210205/pngtree-flat-business-login-box-login-page-image_544861.jpg'); /* Replace 'your-background-image.jpg' with the path to your image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Adjust this value to make sure the background covers the entire viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-container {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Adding a semi-transparent white background */
+    border-radius: 10px;
+    transition: background-color 0.3s; /* Adding a smooth transition effect */
+  }
+  
+  
+  .login-container:hover {
+    background-color: rgba(255, 255, 255, 1); /* Changing the background color on hover */
+    transform: scale(1.1); /* Increasing size on hover */
+  }

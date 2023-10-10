@@ -1,0 +1,218 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Employee } from '../employee/employee';
+
+
+@Component({
+  selector: 'app-employeedetail',
+  templateUrl: './employeedetail.component.html',
+  styleUrls: ['./employeedetail.component.css']
+})
+export class EmployeedetailComponent {
+@Input()ename:string ="";
+@Input()employee:Employee = new Employee();
+@Output()checkCom:EventEmitter<number> = new EventEmitter<number>();
+
+raiseEvent(){
+  this.checkCom.emit(this.employee.id);
+}
+
+}
+-------------------------------------
+<p>Employee Name : {{ename}}</p>
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" [src]="employee.pic" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{employee.name}}</h5>
+      <p class="card-text">{{employee.salary}}</p>
+      
+    </div>
+  </div>
+  <button (click)="raiseEvent()" class="btn btn-success">Click to check</button>
+---------------------------------------------------
+import { Component } from '@angular/core';
+import { EmployeeWebService } from '../services/employeeweb.service';
+import { Employee } from '../employee/employee';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-employeesdetail',
+  templateUrl: './employeesdetail.component.html',
+  styleUrls: ['./employeesdetail.component.css']
+})
+export class EmployeesdetailComponent {
+employeename:string="";
+employees:Employee[]=[]
+constructor(private employeeService:EmployeeWebService,private router:Router){
+    this.employeeService.getEmployees().subscribe(emps=>{
+      this.employees = emps as Employee[];
+    });
+}
+
+showData(data:any)
+{
+ console.log(data);
+  this.router.navigate(["update",data])
+}
+}
+-----------------------------------------------------------
+import { Component } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+
+import { EmployeeWebService } from '../services/employeeweb.service';
+
+@Component({
+  selector: 'app-update-employee',
+  templateUrl: './update-employee.component.html',
+  styleUrls: ['./update-employee.component.css']
+})
+export class UpdateEmployeeComponent {
+
+  constructor(private activatedRoute:ActivatedRoute, 
+    private router:Router,
+    private employeeService:EmployeeWebService){
+
+    }
+  updateEmployee(){
+      var id = this.activatedRoute.snapshot.params["eid"];
+      this.employeeService.updateEmployee(id).subscribe(data=>{
+        alert("Updated status");
+        this.router.navigate([""]);
+      })
+  }
+}
+--------------------------------------
+<button class="btn btn-info" (click)="updateEmployee()">Are you sure you want to update</button>
+
+-----------------------------------------
+<p>employeesdetail works!</p>
+<input type="text" [(ngModel)]="employeename">
+<hr>
+<div *ngFor="let emp of employees">
+    <app-employeedetail (checkCom)="showData($event)" [employee]="emp">
+
+    </app-employeedetail>
+</div>
+------------------------------------------------
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { SecondComponent } from './second/second.component';
+import { EmployeesComponent } from './employees/employees.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { DeleteEmpComponent } from './delete-emp/delete-emp.component';
+import { LoginComponent } from './login/login.component';
+import { FirstComponent } from './first/first.component';
+import { AuthGuard } from './services/auth.service';
+import { MenuComponent } from './menu/menu.component';
+import { OneComponent } from './one/one.component';
+import { TwoComponent } from './two/two.component';
+import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
+
+const routes: Routes = [
+  {path:'menu',component:MenuComponent,children:[
+    {path:'home',component:SecondComponent},
+  {path:'employees',component:EmployeesComponent},
+  {path:'add',component:EmployeeComponent,canActivate:[AuthGuard]},
+  {path:'delete',component:DeleteEmpComponent,children:[
+    {path:'first',component:FirstComponent}
+  ]}
+  ]},
+  {path:'',component:LoginComponent},
+  {path:'one',component:OneComponent},
+  {path:'two/:g3',component:TwoComponent},
+  {path:'update/:eid',component:UpdateEmployeeComponent}
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+----------------------------------------------------------
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Employee } from "../employee/employee";
+
+@Injectable()
+export class EmployeeWebService{
+
+    constructor(private httpClient:HttpClient){
+
+    }
+    getToken():string{
+        var token = "";
+        token = sessionStorage.getItem("token") as string;
+        return token;
+
+    }
+    getEmployees(){
+        return this.httpClient.get("http://localhost:5159/api/Employee");
+    }
+
+    addEmployee(employee:Employee){
+        const header = new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':'Bearer '+this.getToken()
+        });
+        console.log(employee);
+        const requestOptions = {headers:header};
+        return this.httpClient.post("http://localhost:5159/api/Employee",employee,requestOptions);
+    }
+    deleteEmployee(eid:number){
+        const header = new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':'Bearer '+this.getToken()
+        });
+        console.log(eid);
+        const requestOptions = {headers:header};
+        return this.httpClient.put("http://localhost:5159/api/Employee/UpdateStatus?id="+eid,requestOptions);
+    }
+    updateEmployee(eid:number){
+        const header = new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':'Bearer '+this.getToken()
+        });
+        console.log(eid);
+        const requestOptions = {headers:header};
+        return this.httpClient.put("http://localhost:5159/api/Employee/UpdateStatus?id="+eid,requestOptions);
+    }
+}
+----------------------------------------------------------
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-two',
+  templateUrl: './two.component.html',
+  styleUrls: ['./two.component.css']
+})
+export class TwoComponent {
+data:string="";
+constructor(private active:ActivatedRoute){
+    this.data = active.snapshot.params["g3"]
+}
+}--------------------
+-------------------------------------
+<h1>{{data}}</h1>
+-------------------------------------
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-one',
+  templateUrl: './one.component.html',
+  styleUrls: ['./one.component.css']
+})
+export class OneComponent {
+numbers:number[]=[100,34,55,22,45];
+constructor(private route:Router){
+
+}
+goTo(num:any){
+  this.route.navigate(["two",num])
+}
+}
+-----------------------------------
+<div *ngFor="let num of numbers">
+    <button (click)="goTo(num)" class="btn btn-warning">Pass {{num}}</button>
+    <hr>
+</div>

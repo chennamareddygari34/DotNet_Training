@@ -1,0 +1,15 @@
+<div class="abc">
+    <div class="card">
+      <div class="card-body">
+        <div class="alert alert-dark">
+          <!-- Your form elements here -->
+          Product Name : <input class="form-control" type="text" [(ngModel)]="product.name"><br/>
+          Product Price : <input class="form-control" type="number" [(ngModel)]="product.price"><br/>
+          Product Pic  : <input class="form-control" (change)="assignFile(pic)" #pic type="file"><br/>
+          Product Quantity : <input class="form-control" type="orderDate" [(ngModel)]="product.quantity"><br/>
+          Product Category : <input class="form-control" type="text" [(ngModel)]="product.categoey"><br/>
+          <button (click)="addProduct()" class="btn btn-dark"> Add Product</button>
+        </div>
+      </div>
+    </div>
+  </div>

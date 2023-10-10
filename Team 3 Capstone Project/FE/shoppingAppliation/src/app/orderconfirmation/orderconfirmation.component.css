@@ -1,0 +1,173 @@
+header, main, footer {
+    /* Add your styles for header, main, and footer */
+  }
+  
+  #order-details, #products {
+    /* Add your styles for order details and products sections */
+  }
+  
+  .product {
+    /* Add your styles for individual products */
+  }
+
+  /* Reset some default styles */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+ 
+
+/* Global styles */
+
+body {
+
+    font-family: Arial, sans-serif;
+
+    background-color: #ac1769;
+
+}
+
+ 
+
+header {
+
+    background-color: #333;
+
+    color: rgb(208, 29, 155);
+
+    text-align: center;
+
+    padding: 20px;
+
+}
+
+ 
+
+main {
+
+    max-width: 800px;
+
+    margin: 0 auto;
+
+    padding: 20px;
+
+}
+
+ 
+
+section {
+
+    background-color: rgb(140, 158, 240);
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    border-radius: 5px;
+
+    box-shadow: 0px 0px 5px rgba(113, 110, 110, 0.2);
+
+}
+
+ 
+
+/* Order Details section */
+
+#order-details h2 {
+
+    color: #333;
+
+}
+
+ 
+
+ul {
+
+    list-style-type: none;
+
+}
+
+ 
+
+li {
+
+    margin-bottom: 10px;
+
+}
+
+ 
+
+/* Products section */
+
+#products h2 {
+
+    color: #333;
+
+}
+
+ 
+
+.product {
+
+    display: flex;
+
+    margin-bottom: 10px;
+
+    border: 1px solid #ddd;
+
+    padding: 10px;
+
+}
+
+ 
+
+.product img {
+
+    max-width: 100px;
+
+    margin-right: 10px;
+
+}
+
+ 
+
+.product-details h3 {
+
+    font-size: 1.2em;
+
+    margin-bottom: 5px;
+
+}
+
+ 
+
+.product-details p {
+
+    margin: 0;
+
+    font-size: 1em;
+
+}
+
+ 
+
+/* Footer */
+
+footer {
+
+    text-align: center;
+
+    background-color: #333;
+
+    color: white;
+
+    padding: 10px;
+
+}

@@ -40,8 +40,8 @@ namespace XYZHotels.Migrations
                     b.Property<bool?>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("RoomId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Pic")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -51,23 +51,24 @@ namespace XYZHotels.Migrations
                         new
                         {
                             Id = 1,
-                            Facility = "ATP-Side",
-                            HotelName = "ABC",
-                            RoomId = 1
+                            Facility = "Road-Side",
+                            HotelName = "ABC"
                         },
                         new
                         {
                             Id = 2,
-                            Facility = "Main-Road",
-                            HotelName = "DEF",
-                            RoomId = 1
+                            Facility = "Bustand-Road",
+                            HotelName = "DEF"
                         });
                 });
 
             modelBuilder.Entity("XYZHotels.Models.Room", b =>
                 {
                     b.Property<int>("RoomId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RoomId"));
 
                     b.Property<string>("Balcony")
                         .IsRequired()
@@ -90,14 +91,14 @@ namespace XYZHotels.Migrations
                             RoomId = 1,
                             Balcony = "true",
                             BedType = "Single",
-                            Price = 10000
+                            Price = 6500
                         },
                         new
                         {
                             RoomId = 2,
                             Balcony = "false",
                             BedType = "Double",
-                            Price = 8000
+                            Price = 9000
                         });
                 });
 
@@ -119,20 +120,6 @@ namespace XYZHotels.Migrations
                     b.HasKey("UserName");
 
                     b.ToTable("users");
-                });
-
-            modelBuilder.Entity("XYZHotels.Models.Room", b =>
-                {
-                    b.HasOne("XYZHotels.Models.Hotel", null)
-                        .WithMany("Rooms")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("XYZHotels.Models.Hotel", b =>
-                {
-                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }

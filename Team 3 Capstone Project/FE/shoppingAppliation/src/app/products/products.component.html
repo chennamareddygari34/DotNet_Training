@@ -1,0 +1,29 @@
+
+
+<div class="abc">
+    &nbsp;
+    <div class="col-md-6">
+
+
+<input type="text" placeholder="Search" class="form-control custom-input" [(ngModel)]="searchKey"/>
+
+
+        </div>
+    <div class="row">
+    <ng-container *ngFor="let item of products |filter:searchKey">
+    <div class="col-md-4">
+    <div class="card">
+    <img src="{{item.pic}}" class="card-img-top" alt="">
+    <div class="card-body">
+    <h5 class="card-title">{{item.name}}</h5>
+    <p class="card-text">{{item.categoey}}</p>
+    <p class="card-text"><strong>Price:</strong> {{item.price | currency:'INR'}}</p>
+    <button style='margin-right:16px' class="btn btn-primary" (click)="AddToCart(item)">Add to cart</button>
+    
+    <button class="btn btn-primary"  (click)="BuyClick(item)">Buy</button>
+    </div>
+    </div>
+    </div>
+    </ng-container>
+    </div>
+    </div>

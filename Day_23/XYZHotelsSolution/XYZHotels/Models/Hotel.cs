@@ -9,10 +9,6 @@ namespace XYZHotels.Models
         public string HotelName { get; set; }
         public string? Facility { get; set; }
         public bool? IsActive { get; set; }
-
-        public int? RoomId { get; set; }
-
-        [ForeignKey("RoomId")]
-        public List<Room>? Rooms { get; set; }
+        public string? Pic { get; set; }
     }
 }

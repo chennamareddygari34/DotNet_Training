@@ -1,0 +1,23 @@
+<div *ngIf="orders.length > 0 else noorder"  >
+    <div class="alert alert-primary" *ngFor="let order of orders">
+
+         Order Id: {{order.id}}
+        <br/>
+        Product Quantity : {{order.productQuantity}}
+        <br/>
+        Date Time : {{order.dateTime}}
+        <br/>
+        Order Date: {{order.dateTime}}
+        <br/>
+        Total Price: {{order.totalPrice}}
+        <br/>
+        User Name: {{order.username}} 
+
+    </div>
+</div>
+    
+<ng-template #noorder >
+    <div class="alert alert-warning">
+        No orders yet
+    </div>
+</ng-template>

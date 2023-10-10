@@ -1,0 +1,75 @@
+
+<div class="background-container">
+  <div class="alert alert-primary">
+<div class="col"  >
+  <a href="" class="btn btn-outline-success">Add New Item</a>
+</div>
+
+<div *ngIf="carts.length > 0 else null"  >
+    <div class="alert alert-primary" >
+      <div class="row row-cols-1 row-cols-md-4 g-4">
+        <!-- Loop through hotels to create cards -->
+        <div *ngFor="let cart of carts" class="col">
+          <div class="card">
+            <img src="{{cart.proPic}}" class="card-img-top"  alt="nooo" >
+            <div class="card-body">
+              <p class="card-title"> <b>Product Name</b>&nbsp; &nbsp; &nbsp; &nbsp;: &nbsp;<small>{{cart.productName}} </small>  </p>
+              <!-- <h5 class="card-title"> Hotel Id: {{hotel.id}} </h5> -->
+              <p class="card-title"> <b>  productQuantity</b>&nbsp; &nbsp;: &nbsp;<small> <b>{{cart.productQuantity}} </b> </small>  </p>
+
+              <p class="card-title"> <b>   productPrice</b> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;: &nbsp;<small> <b>{{cart.productPrice}} </b> </small>  </p>
+
+              <p class="card-title"> <b>   product Total Price</b> &nbsp;: &nbsp;<small> <b>{{cart.productTotalPrice }} </b> </small>  </p>
+              <p class="card-title"> <b> Product Id </b>&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;: &nbsp;<small> <b> {{cart.productId}} </b> </small>  </p>
+              <p class="card-title"> <b> cart Id</b>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: &nbsp;<small> <b>  {{cart.id}}</b> </small>  </p>
+           
+             <hr>
+              <!-- <h5 class="card-title"> Hotel TotalRooms: {{hotel.totalRooms}} </h5> -->
+              <div class="row">
+                <div class="col" >
+                  <button (click)="RemoveItem(cart.id)" #cId class="btn btn-outline-danger">Remove Item</button>
+                </div>
+                <div class="col" >
+                  <button (click)="details(cart.id)" #cId class="btn btn-outline-primary">Edit Item</button>
+                </div>
+                <!-- <div class="col">
+                    <a  routerLink="../addbooking" class="btn btn-outline-success">Booking</a>
+                  </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+      <hr>
+      <div>
+        <input name="type" type="radio"  (change)="getAddress()" class="radio" >select Address
+        <br>
+        <hr>
+        <div *ngIf="isAddressselected==false">
+
+          <label for="" > please select Address then only you will Buy from Here</label>
+        </div>
+       
+        <button (click)="OrderItems()" #cId class="btn btn-outline-success" *ngIf="isAddressselected==true">Buy Now Your Items</button>
+       
+        <!-- <button (click)="getAddress()" #cId class="btn btn-outline-success">Change Address</button> -->
+      
+      </div>
+     
+    </div>
+  </div>
+  </div>
+</div>
+<div *ngIf="orderconfirmeitem.orderId>0">
+  <app-orderconfirmation  [ordersdetail]="orderconfirmeitem">
+
+  </app-orderconfirmation>
+
+</div>
+
+
+
+
+
+

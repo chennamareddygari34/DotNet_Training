@@ -8,11 +8,15 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'xyzhotelapp';
+update: any;
+delete: any;
+add: any;
+hotels: any;
 
   constructor(private router:Router){
   }
 
-  logout(){
+   logout(){
     sessionStorage.removeItem("token");
     this.router.navigateByUrl("login");
   }

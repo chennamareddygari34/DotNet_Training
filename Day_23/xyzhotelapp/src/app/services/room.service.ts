@@ -36,6 +36,26 @@ export class RoomService{
         return this.httpClient.post("http://localhost:5156/api/Room",room,requestOptions);
     }
 
+    // deleteHotel(htl:number){
+    //     const header = new HttpHeaders({
+    //         'Content-Type':'application/json',
+    //         'Authorization':'Bearer '+this.getToken()
+    //     });
+    //     console.log(htl);
+    //     const requestOptions = {headers:header};
+    //     return this.httpClient.delete("http://localhost:5156/api/Hotel?id="+htl,requestOptions);
+    // }
+
+    // updateHotel(htl:number){
+    //     const header = new HttpHeaders({
+    //         'Content-Type':'application/json',
+    //         'Authorization':'Bearer '+this.getToken()
+    //     });
+    //     console.log(htl);
+    //     const requestOptions = {headers:header};
+    //     return this.httpClient.put("http://localhost:5156/api/Hotel/Update",+htl,requestOptions);
+    // }
+
     updateRoom(room:UpdateRoom){
         const header = new HttpHeaders({
             'Content-Type':'application/json',
@@ -47,20 +67,12 @@ export class RoomService{
     }
 
     deleteRoom(htl:number){
-
         const header = new HttpHeaders({
-
             'Content-Type':'application/json',
-
             'Authorization':'Bearer '+this.getToken()
-
         });
-
         console.log(htl);
-
         const requestOptions = {headers:header};
-
         return this.httpClient.delete("http://localhost:5156/api/Room?id="+htl,requestOptions);
-
     }
 }

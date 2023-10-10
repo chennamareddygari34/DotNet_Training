@@ -1,0 +1,62 @@
+<div class="abc">
+
+  <div class="card card-width-500">
+    <div class="card-header">
+   <h3> <strong> Edit Product</strong></h3> 
+    </div>
+    <div class="card-body">
+      <div *ngIf="cart.id > 0">
+        <div class="alert alert-dark">
+          <div class="row">
+            <div class="col-5">
+              <label for="productName">Product Name:</label>
+              <input id="productName" class="form-control" type="text" [(ngModel)]="cart.productName" disabled>
+            </div>
+            <div class="col-5">
+              <label for="productId" hidden>Product ID:</label>
+              <input id="productId" class="form-control" type="text" [(ngModel)]="cart.productId" disabled hidden>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-5">
+              <label for="productQuantity">Product Quantity:</label>
+              <input id="productQuantity" class="form-control" type="text" [(ngModel)]="quantityCounter">
+              <hr>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-secondary" (click)="increaseQuantity()">Increase Quantity</button>
+                <button type="button" class="btn btn-secondary" (click)="decreaseQuantity()">Decrease Quantity</button>
+              </div>
+            </div>
+            <div class="col-5">
+              <label for="productPrice">Product Price:</label>
+              <input id="productPrice" class="form-control" type="text" [(ngModel)]="cart.productPrice" disabled>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-5">
+              <label for="productTotalPrice">Product Total Price:</label>
+              <input id="productTotalPrice" class="form-control" type="text" [(ngModel)]="quantityCounter*cart.productPrice" >
+            </div>
+            <div class="col-5">
+              <label for="cartId" hidden>Cart ID:</label>
+              <input id="cartId" class="form-control" type="number" [(ngModel)]="cart.id" disabled  hidden>
+            </div>
+            <!-- <div class="col-6">
+              <label for="productPic">Product Pic:</label>
+              <input id="productPic" type="file" class="form-control" (change)="onimgSelected(pic)" #pic>
+            </div> -->
+          </div>
+  
+          <div class="row mt-3">
+            <div class="col-4">
+              <button (click)="Updatecart(quantityCounter*cart.productPrice)" #total class="btn btn-dark">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

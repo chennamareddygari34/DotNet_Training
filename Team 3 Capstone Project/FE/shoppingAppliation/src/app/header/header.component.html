@@ -1,0 +1,38 @@
+
+
+
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="">Shopping Hub</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="login" *ngIf="!islogin">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="addproduct">Add product</a>
+          </li>
+          <li class="nav-item" *ngIf="islogin">
+            <a class="nav-link" (click)="logout()" routerLink="">log Out</a>
+          </li>
+         
+        </ul>
+        <button routerLink="cart" class="btn " style="margin-left: 800px;background-color: rgb(194, 240, 244);" >
+          <i class="fa fa-shopping-cart" style="size: 50px; text-decoration-color: azure; ">{{totalItem}}</i>
+     
+          <!-- <div style="font-size: 10px;" class="badge bg-danger">{{totalItem}}</div> -->
+        </button>
+
+      </div>
+    </div>
+  </nav>
+
+  <div style="color: rgb(231, 53, 17); background-color: rgb(172, 190, 191);">
+    <marquee behavior="alternate" direction="left"><b>Festival Offer 20% Discount Book now Hurry Up!....</b></marquee>
+  </div>
+
+
+  <router-outlet></router-outlet>

@@ -1,0 +1,25 @@
+.card-width-500 {
+    width: 500px;
+    margin: auto; 
+  }
+  
+  .abc {
+    background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20220623/pngtree-dark-background-shopping-cart-featuring-add-to-cart-text-photo-photo-image_31942118.jpg'); /* Add your background image path here */
+    background-size: cover; 
+  }
+  
+  .card-body:hover {
+    scale: 1.2px;
+  
+    
+  }
+  
+  .custom-form {
+ 
+    padding: 20px;
+  }
+  
+
+  .custom-form input {
+    margin-bottom: 10px;
+  }

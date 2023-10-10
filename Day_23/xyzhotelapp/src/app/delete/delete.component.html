@@ -1,4 +1,5 @@
-<div class="alert alert-danger">
+<body class="pageStyle">
+<div class="alert alert-danger" class="wrapper">
     <select (change)="selectChange(hid.value)" 
             #hid 
             class="form-control">
@@ -15,7 +16,11 @@
         Hotel Facility : {{hotel.facility}}
         <br/>
         <button (click)="deleteHotel()" class="btn btn-danger">Delete Hotel</button>
+        <button (click)="cancel()" class="btn btn-danger">Cancel</button>
     </div>
+    <br/>
+    <button  (click)="back()" class="btn btn-dark">  Back </button>
+
     <!-- <button (click)="show()" class="btn btn-danger">Show First</button>  -->
 
 </div>
@@ -23,3 +28,4 @@
 <!-- mark for loading children component  -->
 
 <!-- <router-outlet></router-outlet> -->
+</body>

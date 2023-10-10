@@ -1,0 +1,82 @@
+
+<header>
+    <td align="left" bgcolor="#ffffff" style="padding: 20px; Margin: 0; background-color: #ffffff; border-radius: 5px 5px 0px 0px">
+    <table width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; border-spacing: 0px">
+    <tbody>
+    <tr>
+    <td class="es-m-p0r es-m-p20b" valign="top" align="center" style="padding: 0; Margin: 0; border-radius: 5px; overflow: hidden; width: 1200px">
+    <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#f2fcfe" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: separate; border-spacing: 0px; border-left: 1px solid #a4cfd7; border-right: 1px solid #a4cfd7; border-top: 1px solid #a4cfd7; border-bottom: 1px solid #a4cfd7; background-color: #f2fcfe; border-radius: 5px" role="presentation">
+    <tbody>
+    <tr>
+    <td align="center" style="padding: 0; Margin: 0; font-size: 0px"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; text-decoration: underline; color: #022B3A; font-size: 14px"><img src="https://tlr.stripocdn.email/content/guids/CABINET_7a7b94e95c36edc56ed15c8d13d4a5d3/images/nouncheckout5155691_1.png" alt="" style="display: block; border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic" width="100"></a></td>
+    </tr>
+    <tr>
+    <td align="center" style="Margin: 0; padding-top: 10px; padding-bottom: 10px; padding-left: 20px; padding-right: 20px"><h1 style="Margin: 0; line-height: 43px; mso-line-height-rule: exactly; font-family: Poppins, sans-serif; font-size: 36px; font-style: normal; font-weight: bold; color: #022B3A">Thanks for your order!</h1></td>
+    </tr>
+    <tr>
+    <td align="center" style="Margin: 0; padding-top: 10px; padding-bottom: 20px; padding-left: 20px; padding-right: 20px"><p style="Margin: 0; -webkit-text-size-adjust: none; -ms-text-size-adjust: none; mso-line-height-rule: exactly; font-family: Poppins, sans-serif; line-height: 21px; color: #022B3A; font-size: 14px">Review your order information below.</p></td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
+    </header>
+  
+  <main>
+    <section id="order-details">
+        <h2>Your Order Details</h2>
+        <p>Thank you for your order. Your order has been successfully placed. Here are the details:</p>
+        <ul>
+          <li><strong>Order Number:</strong> {{ordersdetail.orderId}}</li>
+          <!-- Access properties of userAddress -->
+          <li><strong>Shipping Address:</strong> {{ordersdetail.userAddress.state}}, {{ordersdetail.userAddress.district}}, {{ordersdetail.userAddress.Landmark}}, {{ordersdetail.userAddress.pincode}}</li>
+          <li><strong>Customer Name:</strong> {{ordersdetail.username}}</li>
+          <li><strong>Total Products:</strong> {{ordersdetail.totalProductQuantity}}</li>
+          <li><strong>Total Price:</strong> {{ordersdetail.totalPrice}}</li>
+        </ul>
+      </section>
+      
+  
+    <section id="products">
+        <h2>Order Summary</h2>
+        <ul *ngFor="let product of ordersdetail.listofItems">
+       
+            <li >
+                <div class="product">
+                  <img [src]="product.proPic" alt="Product Image">
+                  <div class="product-details">
+                    <h3>Product Name: {{product.productName}}</h3>
+                    <p>Product ID: {{product.productId}}</p>
+                    <p>Quantity: {{product.productQuantity}}</p>
+                    <p>Price: {{product.productPrice}}</p>
+                    <p>Total Price: {{product.productTotalPrice}}</p>
+                  </div>
+                </div>
+              </li>
+
+     
+          
+        </ul>
+      </section>
+      
+  </main>
+  
+  <footer>
+    <p>Thank you for shopping with us!</p>
+  </footer>
+
+
+
+
+
+
+<!-- 
+  { "orderId": 22, "totalProductQuantity": 2, "totalPrice": 320000, "username": "Ram", "userAddress": 
+{ "id": 1, "state": "kar", "district": "blg", "city": "blh", "landmark": "temple", "houseNo": "23", 
+"pincode": 591104, "username": "Ram", "user": null }, "listofItems": [ { "id": 0, "proPic": null, 
+"productName": "Dell", "productId": 3, "productQuantity": 1, "productPrice": 70000, 
+"productTotalPrice": 70000 }, { "id": 0, "proPic": null, "productName": "Fan",
+ "productId": 2, "productQuantity": 1, "productPrice": 250000, "productTotalPrice": 250000 } ] } -->

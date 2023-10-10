@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using XYZHotels.Interfaces;
 using XYZHotels.Models;
 using XYZHotels.Models.DTOs;
+using XYZHotels.Services;
 
 namespace XYZHotels.Controllers
 {

@@ -1,0 +1,19 @@
+<div class="alert alert-dark">
+    <!-- Product Id: <input class="form-control" type="number">
+    <br/> -->
+    Product Name : <input class="form-control" type="text" [(ngModel)]="product.name">
+     <br/>
+    Product Price : <input class="form-control" type="dateTime"[(ngModel)]="product.price">
+    <br/> 
+    <!-- Product Pic : <input class="form-control" type="number"[(ngModel)]="product.pic">
+    <br/> --> 
+    Product Pic  :<input class="form-control" (change)="assignFile(pic)" #pic  type="file">
+    <br/>
+    Product Quantity : <input class="form-control" type="orderDate"[(ngModel)]="product.quantity"> 
+    <br/>
+    Product Category : <input class="form-control" type="text" [(ngModel)]="product.category">
+    <br/>
+    <button (click)="addProduct()" class="btn btn-dark"> Add Product</button>
+
+
+</div>

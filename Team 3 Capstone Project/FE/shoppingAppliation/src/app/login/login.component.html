@@ -1,0 +1,16 @@
+
+
+<div class="abc">
+    <div class="login-container">
+        <h2>Login</h2>
+        <form #productForm="ngForm">
+          <input type="text" placeholder="Username" required  name="username" [(ngModel)]="user.userName">
+          <input type="password" placeholder="Password" name="password" [(ngModel)]="user.password" required>
+          <button type="submit" (click)="loginClick()" >Login</button>
+        </form>
+        <p>Don't have an account? <a routerLink="../reg">Sign up</a></p>
+      </div>
+    
+
+</div>
+

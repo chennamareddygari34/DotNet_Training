@@ -1,0 +1,25 @@
+<div *ngIf="products.length > 0 else noproduct"  >
+    <div class="alert alert-primary" *ngFor="let order of products">
+
+        <!-- Product Id: {{product.id}} -->
+        <!-- <br/> -->
+        Product Name : {{product.quantity}}
+        <br/>
+        Product Price: {{product.price}}
+        <br/>
+        Product Pic: {{product.pic}}
+        <br/>
+        Product Quantity: {{product.quantity}}
+        <br/>
+        Product Category: {{product.category}} 
+
+    </div>
+</div>
+<button (click)="showProducts()" class="btn btn-info">Show Products</button> 
+
+    
+<ng-template #noproduct >
+    <div class="alert alert-warning">
+        No product yet
+    </div>
+</ng-template>
